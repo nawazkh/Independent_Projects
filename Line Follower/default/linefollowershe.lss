@@ -1,0 +1,809 @@
+
+linefollowershe.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000027a  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .debug_aranges 00000020  00000000  00000000  000002ce  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  2 .debug_pubnames 00000154  00000000  00000000  000002ee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   0000051e  00000000  00000000  00000442  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000084  00000000  00000000  00000960  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   0000069f  00000000  00000000  000009e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  00000180  00000000  00000000  00001084  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000014f  00000000  00000000  00001204  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_ranges 000001e0  00000000  00000000  00001353  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 cf 00 	call	0x19e	; 0x19e <main>
+  64:	0c 94 3b 01 	jmp	0x276	; 0x276 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <readadc>:
+#include<avr/io.h>
+#include<util/delay.h>
+
+int readadc()
+{
+ADMUX=0b00011000;//forward motion
+  6c:	88 e1       	ldi	r24, 0x18	; 24
+  6e:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//a1
+  70:	8b ee       	ldi	r24, 0xEB	; 235
+  72:	86 b9       	out	0x06, r24	; 6
+return(ADCH);
+  74:	85 b1       	in	r24, 0x05	; 5
+};
+  76:	90 e0       	ldi	r25, 0x00	; 0
+  78:	08 95       	ret
+
+0000007a <readadc01>:
+int readadc01()
+{
+ADMUX=0b00001000;
+  7a:	88 e0       	ldi	r24, 0x08	; 8
+  7c:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//straight
+  7e:	8b ee       	ldi	r24, 0xEB	; 235
+  80:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a2
+  82:	85 b1       	in	r24, 0x05	; 5
+};
+  84:	90 e0       	ldi	r25, 0x00	; 0
+  86:	08 95       	ret
+
+00000088 <readadc10>:
+int readadc10()
+{
+ADMUX=0b00001000;
+  88:	88 e0       	ldi	r24, 0x08	; 8
+  8a:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//straight
+  8c:	8b ee       	ldi	r24, 0xEB	; 235
+  8e:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a3
+  90:	85 b1       	in	r24, 0x05	; 5
+};
+  92:	90 e0       	ldi	r25, 0x00	; 0
+  94:	08 95       	ret
+
+00000096 <readadc_1>:
+
+
+
+int readadc_1()
+{
+ADMUX=0b00111000;//left
+  96:	88 e3       	ldi	r24, 0x38	; 56
+  98:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  9a:	8b ee       	ldi	r24, 0xEB	; 235
+  9c:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a4
+  9e:	85 b1       	in	r24, 0x05	; 5
+};
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	08 95       	ret
+
+000000a4 <readadc_2>:
+int readadc_2()
+{
+ADMUX=0b01011000;//left
+  a4:	88 e5       	ldi	r24, 0x58	; 88
+  a6:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  a8:	8b ee       	ldi	r24, 0xEB	; 235
+  aa:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a5
+  ac:	85 b1       	in	r24, 0x05	; 5
+};
+  ae:	90 e0       	ldi	r25, 0x00	; 0
+  b0:	08 95       	ret
+
+000000b2 <readadc_4>:
+int readadc_4()
+{
+ADMUX=0b01111000;//left
+  b2:	88 e7       	ldi	r24, 0x78	; 120
+  b4:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  b6:	8b ee       	ldi	r24, 0xEB	; 235
+  b8:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a7
+  ba:	85 b1       	in	r24, 0x05	; 5
+};
+  bc:	90 e0       	ldi	r25, 0x00	; 0
+  be:	08 95       	ret
+
+000000c0 <readadc_5>:
+int readadc_5()
+{
+ADMUX=0b11011000;//left
+  c0:	88 ed       	ldi	r24, 0xD8	; 216
+  c2:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  c4:	8b ee       	ldi	r24, 0xEB	; 235
+  c6:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a8
+  c8:	85 b1       	in	r24, 0x05	; 5
+};
+  ca:	90 e0       	ldi	r25, 0x00	; 0
+  cc:	08 95       	ret
+
+000000ce <readadc1>:
+
+
+
+int readadc1()
+{
+ADMUX=0b00011100;//right
+  ce:	8c e1       	ldi	r24, 0x1C	; 28
+  d0:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  d2:	8b ee       	ldi	r24, 0xEB	; 235
+  d4:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a9
+  d6:	85 b1       	in	r24, 0x05	; 5
+};
+  d8:	90 e0       	ldi	r25, 0x00	; 0
+  da:	08 95       	ret
+
+000000dc <readadc2>:
+int readadc2()
+{
+ADMUX=0b00011010;
+  dc:	8a e1       	ldi	r24, 0x1A	; 26
+  de:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//right
+  e0:	8b ee       	ldi	r24, 0xEB	; 235
+  e2:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a10
+  e4:	85 b1       	in	r24, 0x05	; 5
+};
+  e6:	90 e0       	ldi	r25, 0x00	; 0
+  e8:	08 95       	ret
+
+000000ea <readadc4>:
+
+int readadc4()
+{
+ADMUX=0b00011110;//right
+  ea:	8e e1       	ldi	r24, 0x1E	; 30
+  ec:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  ee:	8b ee       	ldi	r24, 0xEB	; 235
+  f0:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a12
+  f2:	85 b1       	in	r24, 0x05	; 5
+};
+  f4:	90 e0       	ldi	r25, 0x00	; 0
+  f6:	08 95       	ret
+
+000000f8 <readadc5>:
+int readadc5()
+{
+ADMUX=0b00011011;//right
+  f8:	8b e1       	ldi	r24, 0x1B	; 27
+  fa:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+  fc:	8b ee       	ldi	r24, 0xEB	; 235
+  fe:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a13
+ 100:	85 b1       	in	r24, 0x05	; 5
+};
+ 102:	90 e0       	ldi	r25, 0x00	; 0
+ 104:	08 95       	ret
+
+00000106 <readadc111>:
+
+
+
+int readadc111()
+{
+ADMUX=0b01111110;//stop
+ 106:	8e e7       	ldi	r24, 0x7E	; 126
+ 108:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 10a:	8b ee       	ldi	r24, 0xEB	; 235
+ 10c:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a14
+ 10e:	85 b1       	in	r24, 0x05	; 5
+};
+ 110:	90 e0       	ldi	r25, 0x00	; 0
+ 112:	08 95       	ret
+
+00000114 <readadc__1>:
+
+
+
+int readadc__1()
+{
+ADMUX=0b00100000;//sharpleft
+ 114:	80 e2       	ldi	r24, 0x20	; 32
+ 116:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 118:	8b ee       	ldi	r24, 0xEB	; 235
+ 11a:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a15
+ 11c:	85 b1       	in	r24, 0x05	; 5
+};
+ 11e:	90 e0       	ldi	r25, 0x00	; 0
+ 120:	08 95       	ret
+
+00000122 <readadc__2>:
+int readadc__2()
+{
+ADMUX=0b01000000;//sharpleft
+ 122:	80 e4       	ldi	r24, 0x40	; 64
+ 124:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//a16
+ 126:	8b ee       	ldi	r24, 0xEB	; 235
+ 128:	86 b9       	out	0x06, r24	; 6
+return(ADCH);
+ 12a:	85 b1       	in	r24, 0x05	; 5
+};
+ 12c:	90 e0       	ldi	r25, 0x00	; 0
+ 12e:	08 95       	ret
+
+00000130 <readadc__4>:
+
+int readadc__4()
+{
+ADMUX=0b01100000;//sharpleft
+ 130:	80 e6       	ldi	r24, 0x60	; 96
+ 132:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 134:	8b ee       	ldi	r24, 0xEB	; 235
+ 136:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a18
+ 138:	85 b1       	in	r24, 0x05	; 5
+};
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	08 95       	ret
+
+0000013e <readadc__5>:
+int readadc__5()
+{
+ADMUX=0b11000000;//sharpleft
+ 13e:	80 ec       	ldi	r24, 0xC0	; 192
+ 140:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 142:	8b ee       	ldi	r24, 0xEB	; 235
+ 144:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a19
+ 146:	85 b1       	in	r24, 0x05	; 5
+};
+ 148:	90 e0       	ldi	r25, 0x00	; 0
+ 14a:	08 95       	ret
+
+0000014c <readadc11>:
+
+
+int readadc11()
+{
+ADMUX=0b00000100;//sharpright
+ 14c:	84 e0       	ldi	r24, 0x04	; 4
+ 14e:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 150:	8b ee       	ldi	r24, 0xEB	; 235
+ 152:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a20
+ 154:	85 b1       	in	r24, 0x05	; 5
+};
+ 156:	90 e0       	ldi	r25, 0x00	; 0
+ 158:	08 95       	ret
+
+0000015a <readadc12>:
+int readadc12()
+{
+ADMUX=0b00000010;//sharpright
+ 15a:	82 e0       	ldi	r24, 0x02	; 2
+ 15c:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 15e:	8b ee       	ldi	r24, 0xEB	; 235
+ 160:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a21
+ 162:	85 b1       	in	r24, 0x05	; 5
+};
+ 164:	90 e0       	ldi	r25, 0x00	; 0
+ 166:	08 95       	ret
+
+00000168 <readadc14>:
+
+int readadc14()
+{
+ADMUX=0b00000110;//sharpright
+ 168:	86 e0       	ldi	r24, 0x06	; 6
+ 16a:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;
+ 16c:	8b ee       	ldi	r24, 0xEB	; 235
+ 16e:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a23
+ 170:	85 b1       	in	r24, 0x05	; 5
+};
+ 172:	90 e0       	ldi	r25, 0x00	; 0
+ 174:	08 95       	ret
+
+00000176 <readadc00>:
+
+
+
+int readadc00()
+{
+ADMUX=0b00000000;
+ 176:	17 b8       	out	0x07, r1	; 7
+ADCSRA=0b11101011;//goback
+ 178:	8b ee       	ldi	r24, 0xEB	; 235
+ 17a:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a25
+ 17c:	85 b1       	in	r24, 0x05	; 5
+};
+ 17e:	90 e0       	ldi	r25, 0x00	; 0
+ 180:	08 95       	ret
+
+00000182 <readadcjunc1>:
+
+
+int readadcjunc1()
+{
+ADMUX=0b00111100;
+ 182:	8c e3       	ldi	r24, 0x3C	; 60
+ 184:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//junc
+ 186:	8b ee       	ldi	r24, 0xEB	; 235
+ 188:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a26
+ 18a:	85 b1       	in	r24, 0x05	; 5
+};
+ 18c:	90 e0       	ldi	r25, 0x00	; 0
+ 18e:	08 95       	ret
+
+00000190 <readadcjunc2>:
+int readadcjunc2()
+{
+ADMUX=0b01011010;
+ 190:	8a e5       	ldi	r24, 0x5A	; 90
+ 192:	87 b9       	out	0x07, r24	; 7
+ADCSRA=0b11101011;//junc
+ 194:	8b ee       	ldi	r24, 0xEB	; 235
+ 196:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a27
+ 198:	85 b1       	in	r24, 0x05	; 5
+};
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	08 95       	ret
+
+0000019e <main>:
+
+
+//28 cases
+void main()
+{
+ 19e:	8f 92       	push	r8
+ 1a0:	9f 92       	push	r9
+ 1a2:	af 92       	push	r10
+ 1a4:	bf 92       	push	r11
+ 1a6:	cf 92       	push	r12
+ 1a8:	df 92       	push	r13
+ 1aa:	ef 92       	push	r14
+ 1ac:	ff 92       	push	r15
+ 1ae:	0f 93       	push	r16
+ 1b0:	1f 93       	push	r17
+DDRA=0b00000000;
+ 1b2:	1a ba       	out	0x1a, r1	; 26
+DDRB=0b11111111;
+ 1b4:	8f ef       	ldi	r24, 0xFF	; 255
+ 1b6:	87 bb       	out	0x17, r24	; 23
+#include<avr/io.h>
+#include<util/delay.h>
+
+int readadc()
+{
+ADMUX=0b00011000;//forward motion
+ 1b8:	e8 e1       	ldi	r30, 0x18	; 24
+ 1ba:	9e 2e       	mov	r9, r30
+ADCSRA=0b11101011;//a1
+ 1bc:	8b ee       	ldi	r24, 0xEB	; 235
+return(ADCH);
+};
+int readadc01()
+{
+ADMUX=0b00001000;
+ 1be:	98 e0       	ldi	r25, 0x08	; 8
+
+
+
+int readadc_1()
+{
+ADMUX=0b00111000;//left
+ 1c0:	78 e3       	ldi	r23, 0x38	; 56
+ 1c2:	a7 2e       	mov	r10, r23
+ADCSRA=0b11101011;
+return(ADCH);//a4
+};
+int readadc_2()
+{
+ADMUX=0b01011000;//left
+ 1c4:	68 e5       	ldi	r22, 0x58	; 88
+ 1c6:	b6 2e       	mov	r11, r22
+ADCSRA=0b11101011;
+return(ADCH);//a5
+};
+int readadc_4()
+{
+ADMUX=0b01111000;//left
+ 1c8:	58 e7       	ldi	r21, 0x78	; 120
+ 1ca:	c5 2e       	mov	r12, r21
+ADCSRA=0b11101011;
+return(ADCH);//a7
+};
+int readadc_5()
+{
+ADMUX=0b11011000;//left
+ 1cc:	48 ed       	ldi	r20, 0xD8	; 216
+ 1ce:	d4 2e       	mov	r13, r20
+
+
+
+int readadc1()
+{
+ADMUX=0b00011100;//right
+ 1d0:	3c e1       	ldi	r19, 0x1C	; 28
+ 1d2:	e3 2e       	mov	r14, r19
+ADCSRA=0b11101011;
+return(ADCH);//a9
+};
+int readadc2()
+{
+ADMUX=0b00011010;
+ 1d4:	2a e1       	ldi	r18, 0x1A	; 26
+ 1d6:	f2 2e       	mov	r15, r18
+return(ADCH);//a10
+};
+
+int readadc4()
+{
+ADMUX=0b00011110;//right
+ 1d8:	0e e1       	ldi	r16, 0x1E	; 30
+ADCSRA=0b11101011;
+return(ADCH);//a12
+};
+int readadc5()
+{
+ADMUX=0b00011011;//right
+ 1da:	1b e1       	ldi	r17, 0x1B	; 27
+
+
+
+int readadc111()
+{
+ADMUX=0b01111110;//stop
+ 1dc:	be e7       	ldi	r27, 0x7E	; 126
+
+
+
+int readadc__1()
+{
+ADMUX=0b00100000;//sharpleft
+ 1de:	a0 e2       	ldi	r26, 0x20	; 32
+ADCSRA=0b11101011;
+return(ADCH);//a15
+};
+int readadc__2()
+{
+ADMUX=0b01000000;//sharpleft
+ 1e0:	f0 e4       	ldi	r31, 0x40	; 64
+return(ADCH);
+};
+
+int readadc__4()
+{
+ADMUX=0b01100000;//sharpleft
+ 1e2:	e0 e6       	ldi	r30, 0x60	; 96
+ADCSRA=0b11101011;
+return(ADCH);//a18
+};
+int readadc__5()
+{
+ADMUX=0b11000000;//sharpleft
+ 1e4:	70 ec       	ldi	r23, 0xC0	; 192
+};
+
+
+int readadc11()
+{
+ADMUX=0b00000100;//sharpright
+ 1e6:	64 e0       	ldi	r22, 0x04	; 4
+ADCSRA=0b11101011;
+return(ADCH);//a20
+};
+int readadc12()
+{
+ADMUX=0b00000010;//sharpright
+ 1e8:	52 e0       	ldi	r21, 0x02	; 2
+return(ADCH);//a21
+};
+
+int readadc14()
+{
+ADMUX=0b00000110;//sharpright
+ 1ea:	46 e0       	ldi	r20, 0x06	; 6
+};
+
+
+int readadcjunc1()
+{
+ADMUX=0b00111100;
+ 1ec:	3c e3       	ldi	r19, 0x3C	; 60
+ADCSRA=0b11101011;//junc
+return(ADCH);//a26
+};
+int readadcjunc2()
+{
+ADMUX=0b01011010;
+ 1ee:	2a e5       	ldi	r18, 0x5A	; 90
+#include<avr/io.h>
+#include<util/delay.h>
+
+int readadc()
+{
+ADMUX=0b00011000;//forward motion
+ 1f0:	97 b8       	out	0x07, r9	; 7
+ADCSRA=0b11101011;//a1
+ 1f2:	86 b9       	out	0x06, r24	; 6
+return(ADCH);
+ 1f4:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc01()
+{
+ADMUX=0b00001000;
+ 1f6:	97 b9       	out	0x07, r25	; 7
+ADCSRA=0b11101011;//straight
+ 1f8:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a2
+ 1fa:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc10()
+{
+ADMUX=0b00001000;
+ 1fc:	97 b9       	out	0x07, r25	; 7
+ADCSRA=0b11101011;//straight
+ 1fe:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a3
+ 200:	85 b0       	in	r8, 0x05	; 5
+
+
+
+int readadc_1()
+{
+ADMUX=0b00111000;//left
+ 202:	a7 b8       	out	0x07, r10	; 7
+ADCSRA=0b11101011;
+ 204:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a4
+ 206:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc_2()
+{
+ADMUX=0b01011000;//left
+ 208:	b7 b8       	out	0x07, r11	; 7
+ADCSRA=0b11101011;
+ 20a:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a5
+ 20c:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc_4()
+{
+ADMUX=0b01111000;//left
+ 20e:	c7 b8       	out	0x07, r12	; 7
+ADCSRA=0b11101011;
+ 210:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a7
+ 212:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc_5()
+{
+ADMUX=0b11011000;//left
+ 214:	d7 b8       	out	0x07, r13	; 7
+ADCSRA=0b11101011;
+ 216:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a8
+ 218:	85 b0       	in	r8, 0x05	; 5
+
+
+
+int readadc1()
+{
+ADMUX=0b00011100;//right
+ 21a:	e7 b8       	out	0x07, r14	; 7
+ADCSRA=0b11101011;
+ 21c:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a9
+ 21e:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc2()
+{
+ADMUX=0b00011010;
+ 220:	f7 b8       	out	0x07, r15	; 7
+ADCSRA=0b11101011;//right
+ 222:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a10
+ 224:	85 b0       	in	r8, 0x05	; 5
+};
+
+int readadc4()
+{
+ADMUX=0b00011110;//right
+ 226:	07 b9       	out	0x07, r16	; 7
+ADCSRA=0b11101011;
+ 228:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a12
+ 22a:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc5()
+{
+ADMUX=0b00011011;//right
+ 22c:	17 b9       	out	0x07, r17	; 7
+ADCSRA=0b11101011;
+ 22e:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a13
+ 230:	85 b0       	in	r8, 0x05	; 5
+
+
+
+int readadc111()
+{
+ADMUX=0b01111110;//stop
+ 232:	b7 b9       	out	0x07, r27	; 7
+ADCSRA=0b11101011;
+ 234:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a14
+ 236:	85 b0       	in	r8, 0x05	; 5
+
+
+
+int readadc__1()
+{
+ADMUX=0b00100000;//sharpleft
+ 238:	a7 b9       	out	0x07, r26	; 7
+ADCSRA=0b11101011;
+ 23a:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a15
+ 23c:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc__2()
+{
+ADMUX=0b01000000;//sharpleft
+ 23e:	f7 b9       	out	0x07, r31	; 7
+ADCSRA=0b11101011;//a16
+ 240:	86 b9       	out	0x06, r24	; 6
+return(ADCH);
+ 242:	85 b0       	in	r8, 0x05	; 5
+};
+
+int readadc__4()
+{
+ADMUX=0b01100000;//sharpleft
+ 244:	e7 b9       	out	0x07, r30	; 7
+ADCSRA=0b11101011;
+ 246:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a18
+ 248:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc__5()
+{
+ADMUX=0b11000000;//sharpleft
+ 24a:	77 b9       	out	0x07, r23	; 7
+ADCSRA=0b11101011;
+ 24c:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a19
+ 24e:	85 b0       	in	r8, 0x05	; 5
+};
+
+
+int readadc11()
+{
+ADMUX=0b00000100;//sharpright
+ 250:	67 b9       	out	0x07, r22	; 7
+ADCSRA=0b11101011;
+ 252:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a20
+ 254:	85 b0       	in	r8, 0x05	; 5
+};
+int readadc12()
+{
+ADMUX=0b00000010;//sharpright
+ 256:	57 b9       	out	0x07, r21	; 7
+ADCSRA=0b11101011;
+ 258:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a21
+ 25a:	85 b0       	in	r8, 0x05	; 5
+};
+
+int readadc14()
+{
+ADMUX=0b00000110;//sharpright
+ 25c:	47 b9       	out	0x07, r20	; 7
+ADCSRA=0b11101011;
+ 25e:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a23
+ 260:	85 b0       	in	r8, 0x05	; 5
+
+
+
+int readadc00()
+{
+ADMUX=0b00000000;
+ 262:	17 b8       	out	0x07, r1	; 7
+ADCSRA=0b11101011;//goback
+ 264:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a25
+ 266:	85 b0       	in	r8, 0x05	; 5
+};
+
+
+int readadcjunc1()
+{
+ADMUX=0b00111100;
+ 268:	37 b9       	out	0x07, r19	; 7
+ADCSRA=0b11101011;//junc
+ 26a:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a26
+ 26c:	85 b0       	in	r8, 0x05	; 5
+};
+int readadcjunc2()
+{
+ADMUX=0b01011010;
+ 26e:	27 b9       	out	0x07, r18	; 7
+ADCSRA=0b11101011;//junc
+ 270:	86 b9       	out	0x06, r24	; 6
+return(ADCH);//a27
+ 272:	85 b0       	in	r8, 0x05	; 5
+ 274:	bd cf       	rjmp	.-134    	; 0x1f0 <main+0x52>
+
+00000276 <_exit>:
+ 276:	f8 94       	cli
+
+00000278 <__stop_program>:
+ 278:	ff cf       	rjmp	.-2      	; 0x278 <__stop_program>

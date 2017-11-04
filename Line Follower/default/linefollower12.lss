@@ -1,0 +1,426 @@
+
+linefollower12.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001f0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .debug_aranges 00000020  00000000  00000000  00000244  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  2 .debug_pubnames 0000007b  00000000  00000000  00000264  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   00000184  00000000  00000000  000002df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 0000008e  00000000  00000000  00000463  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   000001d0  00000000  00000000  000004f1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  000000a0  00000000  00000000  000006c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    000000a2  00000000  00000000  00000764  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_ranges 00000060  00000000  00000000  00000806  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 a7 00 	call	0x14e	; 0x14e <main>
+  64:	0c 94 f6 00 	jmp	0x1ec	; 0x1ec <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <forward>:
+void sharp_left(void);
+void reverse(void);
+
+void forward(void)
+{
+if(PINB==(0b00011000))
+  6c:	86 b3       	in	r24, 0x16	; 22
+  6e:	88 31       	cpi	r24, 0x18	; 24
+  70:	11 f4       	brne	.+4      	; 0x76 <forward+0xa>
+{
+PORTD=0b00001010;
+  72:	8a e0       	ldi	r24, 0x0A	; 10
+  74:	82 bb       	out	0x12, r24	; 18
+  76:	08 95       	ret
+
+00000078 <left>:
+}
+}
+
+void left(void)
+{
+if((PINB==0b00111000||PINB==0b01011000||PINB==0b10011000||PINB==0b01111000||PINB==0b11011000))
+  78:	86 b3       	in	r24, 0x16	; 22
+  7a:	88 33       	cpi	r24, 0x38	; 56
+  7c:	61 f0       	breq	.+24     	; 0x96 <left+0x1e>
+  7e:	86 b3       	in	r24, 0x16	; 22
+  80:	88 35       	cpi	r24, 0x58	; 88
+  82:	49 f0       	breq	.+18     	; 0x96 <left+0x1e>
+  84:	86 b3       	in	r24, 0x16	; 22
+  86:	88 39       	cpi	r24, 0x98	; 152
+  88:	31 f0       	breq	.+12     	; 0x96 <left+0x1e>
+  8a:	86 b3       	in	r24, 0x16	; 22
+  8c:	88 37       	cpi	r24, 0x78	; 120
+  8e:	19 f0       	breq	.+6      	; 0x96 <left+0x1e>
+  90:	86 b3       	in	r24, 0x16	; 22
+  92:	88 3d       	cpi	r24, 0xD8	; 216
+  94:	11 f4       	brne	.+4      	; 0x9a <left+0x22>
+{
+PORTD=0b00001000;
+  96:	88 e0       	ldi	r24, 0x08	; 8
+  98:	82 bb       	out	0x12, r24	; 18
+  9a:	08 95       	ret
+
+0000009c <right>:
+}
+}
+
+void right(void)
+{
+if((PINB==0b00011100||PINB==0b00011010||PINB==0b00011001||PINB==0b00011110||PINB==0b00011011))
+  9c:	86 b3       	in	r24, 0x16	; 22
+  9e:	8c 31       	cpi	r24, 0x1C	; 28
+  a0:	61 f0       	breq	.+24     	; 0xba <right+0x1e>
+  a2:	86 b3       	in	r24, 0x16	; 22
+  a4:	8a 31       	cpi	r24, 0x1A	; 26
+  a6:	49 f0       	breq	.+18     	; 0xba <right+0x1e>
+  a8:	86 b3       	in	r24, 0x16	; 22
+  aa:	89 31       	cpi	r24, 0x19	; 25
+  ac:	31 f0       	breq	.+12     	; 0xba <right+0x1e>
+  ae:	86 b3       	in	r24, 0x16	; 22
+  b0:	8e 31       	cpi	r24, 0x1E	; 30
+  b2:	19 f0       	breq	.+6      	; 0xba <right+0x1e>
+  b4:	86 b3       	in	r24, 0x16	; 22
+  b6:	8b 31       	cpi	r24, 0x1B	; 27
+  b8:	11 f4       	brne	.+4      	; 0xbe <right+0x22>
+{
+PORTD=0b00000010;
+  ba:	82 e0       	ldi	r24, 0x02	; 2
+  bc:	82 bb       	out	0x12, r24	; 18
+  be:	08 95       	ret
+
+000000c0 <stop>:
+}
+}
+
+void stop(void)
+{
+if((PINB==0b11111111))
+  c0:	86 b3       	in	r24, 0x16	; 22
+  c2:	8f 3f       	cpi	r24, 0xFF	; 255
+  c4:	09 f4       	brne	.+2      	; 0xc8 <stop+0x8>
+{
+PORTD=0b00000000;
+  c6:	12 ba       	out	0x12, r1	; 18
+  c8:	08 95       	ret
+
+000000ca <junction>:
+}
+}
+
+void junction(void)
+{
+if((PINB==0b00111100||PINB==0b01011010||PINB==0b10011001))
+  ca:	86 b3       	in	r24, 0x16	; 22
+  cc:	8c 33       	cpi	r24, 0x3C	; 60
+  ce:	31 f0       	breq	.+12     	; 0xdc <junction+0x12>
+  d0:	86 b3       	in	r24, 0x16	; 22
+  d2:	8a 35       	cpi	r24, 0x5A	; 90
+  d4:	19 f0       	breq	.+6      	; 0xdc <junction+0x12>
+  d6:	86 b3       	in	r24, 0x16	; 22
+  d8:	89 39       	cpi	r24, 0x99	; 153
+  da:	11 f4       	brne	.+4      	; 0xe0 <junction+0x16>
+{
+PORTD=0b00001010;
+  dc:	8a e0       	ldi	r24, 0x0A	; 10
+  de:	82 bb       	out	0x12, r24	; 18
+  e0:	08 95       	ret
+
+000000e2 <sharp_right>:
+}
+}
+
+void sharp_right(void)
+{
+if((PINB==0b00000100||PINB==0b00001000||PINB==0b00000010||PINB==0b00000001||PINB==0b00000110||PINB==0b00000011))
+  e2:	86 b3       	in	r24, 0x16	; 22
+  e4:	84 30       	cpi	r24, 0x04	; 4
+  e6:	79 f0       	breq	.+30     	; 0x106 <sharp_right+0x24>
+  e8:	86 b3       	in	r24, 0x16	; 22
+  ea:	88 30       	cpi	r24, 0x08	; 8
+  ec:	61 f0       	breq	.+24     	; 0x106 <sharp_right+0x24>
+  ee:	86 b3       	in	r24, 0x16	; 22
+  f0:	82 30       	cpi	r24, 0x02	; 2
+  f2:	49 f0       	breq	.+18     	; 0x106 <sharp_right+0x24>
+  f4:	86 b3       	in	r24, 0x16	; 22
+  f6:	81 30       	cpi	r24, 0x01	; 1
+  f8:	31 f0       	breq	.+12     	; 0x106 <sharp_right+0x24>
+  fa:	86 b3       	in	r24, 0x16	; 22
+  fc:	86 30       	cpi	r24, 0x06	; 6
+  fe:	19 f0       	breq	.+6      	; 0x106 <sharp_right+0x24>
+ 100:	86 b3       	in	r24, 0x16	; 22
+ 102:	83 30       	cpi	r24, 0x03	; 3
+ 104:	11 f4       	brne	.+4      	; 0x10a <sharp_right+0x28>
+{
+PORTD=0b00000110;
+ 106:	86 e0       	ldi	r24, 0x06	; 6
+ 108:	82 bb       	out	0x12, r24	; 18
+ 10a:	08 95       	ret
+
+0000010c <sharp_left>:
+}
+}
+
+void sharp_left(void)
+{
+if((PINB==0b00100000||PINB==0b00010000||PINB==0b01000000||PINB==0b10000000||PINB==0b01100000||PINB==0b11000000))
+ 10c:	86 b3       	in	r24, 0x16	; 22
+ 10e:	80 32       	cpi	r24, 0x20	; 32
+ 110:	79 f0       	breq	.+30     	; 0x130 <sharp_left+0x24>
+ 112:	86 b3       	in	r24, 0x16	; 22
+ 114:	80 31       	cpi	r24, 0x10	; 16
+ 116:	61 f0       	breq	.+24     	; 0x130 <sharp_left+0x24>
+ 118:	86 b3       	in	r24, 0x16	; 22
+ 11a:	80 34       	cpi	r24, 0x40	; 64
+ 11c:	49 f0       	breq	.+18     	; 0x130 <sharp_left+0x24>
+ 11e:	86 b3       	in	r24, 0x16	; 22
+ 120:	80 38       	cpi	r24, 0x80	; 128
+ 122:	31 f0       	breq	.+12     	; 0x130 <sharp_left+0x24>
+ 124:	86 b3       	in	r24, 0x16	; 22
+ 126:	80 36       	cpi	r24, 0x60	; 96
+ 128:	19 f0       	breq	.+6      	; 0x130 <sharp_left+0x24>
+ 12a:	86 b3       	in	r24, 0x16	; 22
+ 12c:	80 3c       	cpi	r24, 0xC0	; 192
+ 12e:	11 f4       	brne	.+4      	; 0x134 <sharp_left+0x28>
+{
+PORTD=0b00001001;
+ 130:	89 e0       	ldi	r24, 0x09	; 9
+ 132:	82 bb       	out	0x12, r24	; 18
+ 134:	08 95       	ret
+
+00000136 <reverse>:
+}
+}
+
+void reverse(void)
+{
+if((PINB==0b00000000)||(PINB==0b00000000&&PINA==0b00000000))
+ 136:	86 b3       	in	r24, 0x16	; 22
+ 138:	88 23       	and	r24, r24
+ 13a:	31 f0       	breq	.+12     	; 0x148 <reverse+0x12>
+ 13c:	86 b3       	in	r24, 0x16	; 22
+ 13e:	88 23       	and	r24, r24
+ 140:	29 f4       	brne	.+10     	; 0x14c <reverse+0x16>
+ 142:	89 b3       	in	r24, 0x19	; 25
+ 144:	88 23       	and	r24, r24
+ 146:	11 f4       	brne	.+4      	; 0x14c <reverse+0x16>
+{
+PORTD=0b00000101;
+ 148:	85 e0       	ldi	r24, 0x05	; 5
+ 14a:	82 bb       	out	0x12, r24	; 18
+ 14c:	08 95       	ret
+
+0000014e <main>:
+}
+}
+
+int main()
+{
+ 14e:	ef 92       	push	r14
+ 150:	ff 92       	push	r15
+ 152:	0f 93       	push	r16
+ 154:	1f 93       	push	r17
+DDRA=0b00000000;
+ 156:	1a ba       	out	0x1a, r1	; 26
+DDRB=0b00000000;
+ 158:	17 ba       	out	0x17, r1	; 23
+DDRD=0b11111111;
+ 15a:	8f ef       	ldi	r24, 0xFF	; 255
+ 15c:	81 bb       	out	0x11, r24	; 17
+
+void forward(void)
+{
+if(PINB==(0b00011000))
+{
+PORTD=0b00001010;
+ 15e:	1a e0       	ldi	r17, 0x0A	; 10
+
+void left(void)
+{
+if((PINB==0b00111000||PINB==0b01011000||PINB==0b10011000||PINB==0b01111000||PINB==0b11011000))
+{
+PORTD=0b00001000;
+ 160:	98 e0       	ldi	r25, 0x08	; 8
+ 162:	e9 2e       	mov	r14, r25
+
+void right(void)
+{
+if((PINB==0b00011100||PINB==0b00011010||PINB==0b00011001||PINB==0b00011110||PINB==0b00011011))
+{
+PORTD=0b00000010;
+ 164:	82 e0       	ldi	r24, 0x02	; 2
+ 166:	f8 2e       	mov	r15, r24
+
+void reverse(void)
+{
+if((PINB==0b00000000)||(PINB==0b00000000&&PINA==0b00000000))
+{
+PORTD=0b00000101;
+ 168:	05 e0       	ldi	r16, 0x05	; 5
+void sharp_left(void);
+void reverse(void);
+
+void forward(void)
+{
+if(PINB==(0b00011000))
+ 16a:	86 b3       	in	r24, 0x16	; 22
+ 16c:	88 31       	cpi	r24, 0x18	; 24
+ 16e:	09 f4       	brne	.+2      	; 0x172 <main+0x24>
+{
+PORTD=0b00001010;
+ 170:	12 bb       	out	0x12, r17	; 18
+}
+}
+
+void left(void)
+{
+if((PINB==0b00111000||PINB==0b01011000||PINB==0b10011000||PINB==0b01111000||PINB==0b11011000))
+ 172:	86 b3       	in	r24, 0x16	; 22
+ 174:	88 33       	cpi	r24, 0x38	; 56
+ 176:	61 f0       	breq	.+24     	; 0x190 <main+0x42>
+ 178:	86 b3       	in	r24, 0x16	; 22
+ 17a:	88 35       	cpi	r24, 0x58	; 88
+ 17c:	49 f0       	breq	.+18     	; 0x190 <main+0x42>
+ 17e:	86 b3       	in	r24, 0x16	; 22
+ 180:	88 39       	cpi	r24, 0x98	; 152
+ 182:	31 f0       	breq	.+12     	; 0x190 <main+0x42>
+ 184:	86 b3       	in	r24, 0x16	; 22
+ 186:	88 37       	cpi	r24, 0x78	; 120
+ 188:	19 f0       	breq	.+6      	; 0x190 <main+0x42>
+ 18a:	86 b3       	in	r24, 0x16	; 22
+ 18c:	88 3d       	cpi	r24, 0xD8	; 216
+ 18e:	09 f4       	brne	.+2      	; 0x192 <main+0x44>
+{
+PORTD=0b00001000;
+ 190:	e2 ba       	out	0x12, r14	; 18
+}
+}
+
+void right(void)
+{
+if((PINB==0b00011100||PINB==0b00011010||PINB==0b00011001||PINB==0b00011110||PINB==0b00011011))
+ 192:	86 b3       	in	r24, 0x16	; 22
+ 194:	8c 31       	cpi	r24, 0x1C	; 28
+ 196:	61 f0       	breq	.+24     	; 0x1b0 <main+0x62>
+ 198:	86 b3       	in	r24, 0x16	; 22
+ 19a:	8a 31       	cpi	r24, 0x1A	; 26
+ 19c:	49 f0       	breq	.+18     	; 0x1b0 <main+0x62>
+ 19e:	86 b3       	in	r24, 0x16	; 22
+ 1a0:	89 31       	cpi	r24, 0x19	; 25
+ 1a2:	31 f0       	breq	.+12     	; 0x1b0 <main+0x62>
+ 1a4:	86 b3       	in	r24, 0x16	; 22
+ 1a6:	8e 31       	cpi	r24, 0x1E	; 30
+ 1a8:	19 f0       	breq	.+6      	; 0x1b0 <main+0x62>
+ 1aa:	86 b3       	in	r24, 0x16	; 22
+ 1ac:	8b 31       	cpi	r24, 0x1B	; 27
+ 1ae:	09 f4       	brne	.+2      	; 0x1b2 <main+0x64>
+{
+PORTD=0b00000010;
+ 1b0:	f2 ba       	out	0x12, r15	; 18
+while(1)
+{
+forward();
+left();
+right();
+sharp_left();
+ 1b2:	0e 94 86 00 	call	0x10c	; 0x10c <sharp_left>
+sharp_right();
+ 1b6:	0e 94 71 00 	call	0xe2	; 0xe2 <sharp_right>
+}
+}
+
+void junction(void)
+{
+if((PINB==0b00111100||PINB==0b01011010||PINB==0b10011001))
+ 1ba:	86 b3       	in	r24, 0x16	; 22
+ 1bc:	8c 33       	cpi	r24, 0x3C	; 60
+ 1be:	31 f0       	breq	.+12     	; 0x1cc <main+0x7e>
+ 1c0:	86 b3       	in	r24, 0x16	; 22
+ 1c2:	8a 35       	cpi	r24, 0x5A	; 90
+ 1c4:	19 f0       	breq	.+6      	; 0x1cc <main+0x7e>
+ 1c6:	86 b3       	in	r24, 0x16	; 22
+ 1c8:	89 39       	cpi	r24, 0x99	; 153
+ 1ca:	09 f4       	brne	.+2      	; 0x1ce <main+0x80>
+{
+PORTD=0b00001010;
+ 1cc:	12 bb       	out	0x12, r17	; 18
+}
+}
+
+void reverse(void)
+{
+if((PINB==0b00000000)||(PINB==0b00000000&&PINA==0b00000000))
+ 1ce:	86 b3       	in	r24, 0x16	; 22
+ 1d0:	88 23       	and	r24, r24
+ 1d2:	31 f0       	breq	.+12     	; 0x1e0 <main+0x92>
+ 1d4:	86 b3       	in	r24, 0x16	; 22
+ 1d6:	88 23       	and	r24, r24
+ 1d8:	21 f4       	brne	.+8      	; 0x1e2 <main+0x94>
+ 1da:	89 b3       	in	r24, 0x19	; 25
+ 1dc:	88 23       	and	r24, r24
+ 1de:	09 f4       	brne	.+2      	; 0x1e2 <main+0x94>
+{
+PORTD=0b00000101;
+ 1e0:	02 bb       	out	0x12, r16	; 18
+}
+}
+
+void stop(void)
+{
+if((PINB==0b11111111))
+ 1e2:	86 b3       	in	r24, 0x16	; 22
+ 1e4:	8f 3f       	cpi	r24, 0xFF	; 255
+ 1e6:	09 f6       	brne	.-126    	; 0x16a <main+0x1c>
+{
+PORTD=0b00000000;
+ 1e8:	12 ba       	out	0x12, r1	; 18
+ 1ea:	bf cf       	rjmp	.-130    	; 0x16a <main+0x1c>
+
+000001ec <_exit>:
+ 1ec:	f8 94       	cli
+
+000001ee <__stop_program>:
+ 1ee:	ff cf       	rjmp	.-2      	; 0x1ee <__stop_program>
