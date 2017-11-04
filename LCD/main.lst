@@ -1,0 +1,740 @@
+   1               		.file	"main.c"
+   2               		.arch atmega16
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  69               	.global	delayms
+  71               	delayms:
+  73               	.Ltext1:
+   1:c:/winavr/bin/../avr/include/technophilia/delay.h **** /*	LCD.h
+   2:c:/winavr/bin/../avr/include/technophilia/delay.h **** Technophilia embedded systems
+   3:c:/winavr/bin/../avr/include/technophilia/delay.h **** 
+   4:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	this header file provides time delay in the form of mili second and micro second
+   5:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	without affecting any interrupts.
+   6:c:/winavr/bin/../avr/include/technophilia/delay.h **** 
+   7:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	delayms()  this function provides delay in the form of mili second
+   8:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	delayus()  this function provides delay in the form of micro second
+   9:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	
+  10:c:/winavr/bin/../avr/include/technophilia/delay.h **** */
+  11:c:/winavr/bin/../avr/include/technophilia/delay.h **** #ifndef _DELAY_H_
+  12:c:/winavr/bin/../avr/include/technophilia/delay.h **** #define _DELAY_H_
+  13:c:/winavr/bin/../avr/include/technophilia/delay.h **** unsigned int delaycounter1,delaycounter2;
+  14:c:/winavr/bin/../avr/include/technophilia/delay.h **** void delayms(unsigned int delaytime)
+  15:c:/winavr/bin/../avr/include/technophilia/delay.h **** {
+  74               	ue end (size=0) */
+  76               	.LM1:
+  77               		sts (delaycounter1)+1,__zero_reg__
+  16:c:/winavr/bin/../avr/include/technophilia/delay.h **** 
+  17:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	 for(delaycounter1=0;delaycounter1<=delaytime;delaycounter1++)
+  78               	 delaycounter1,__zero_reg__
+  79               		ldi r18,lo8(0)
+  80 0000 1092 0000 		ldi r19,hi8(0)
+  81 0004 1092 0000 	.L2:
+  83 000a 30E0      	.LM2:
+  84               		ldi r20,lo8(0)
+  85               		ldi r21,hi8(0)
+  86               	.L3:
+  88 000e 50E0      	.LM3:
+  89               	/* #APP */
+  18:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	 {
+  19:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		 for(delaycounter2=0;delaycounter2<=800;delaycounter2++)
+  20:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  {
+  21:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+  90               	op
+  91               		nop
+  92               		nop
+  93 0010 0000      		nop
+  95 0014 0000      	.LM4:
+  96 0016 0000      		nop
+  97 0018 0000      		nop
+  98 001a 0000      		nop
+  22:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+  99               	
+ 100               		nop
+ 101 001c 0000      	/* #NOAPP */
+ 102 001e 0000      		subi r20,lo8(-(1))
+ 103 0020 0000      		sbci r21,hi8(-(1))
+ 105 0024 0000      	.LM5:
+ 106 0026 0000      		ldi r22,hi8(801)
+ 107               		cpi r20,lo8(801)
+ 108 0028 4F5F      		cpc r21,r22
+ 109 002a 5F4F      		brne .L3
+ 110               		subi r18,lo8(-(1))
+ 111               		sbci r19,hi8(-(1))
+ 113 002e 4132      	.LM6:
+ 114 0030 5607      		cp r24,r18
+ 115 0032 01F4      		cpc r25,r19
+ 116 0034 2F5F      		brsh .L2
+ 117 0036 3F4F      		sts (delaycounter1)+1,r19
+ 118               		sts delaycounter1,r18
+ 119               		sts (delaycounter2)+1,r21
+ 120 0038 8217      		sts delaycounter2,r20
+ 121 003a 9307      	/* epilogue: frame size=0 */
+ 122 003c 00F4      		ret
+ 123 003e 3093 0000 	/* epilogue end (size=1) */
+ 124 0042 2093 0000 	/* function delayms size 52 (51) */
+ 126 004a 4093 0000 	.Lscope0:
+ 129               	.global	delayus
+ 131               	delayus:
+ 133               	.LM7:
+ 134               	/* prologue: frame size=0 */
+ 135               	/* prologue end (size=0) */
+ 137               	.LM8:
+  23:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  }
+  24:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		
+  25:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	 }
+  26:c:/winavr/bin/../avr/include/technophilia/delay.h **** }
+  27:c:/winavr/bin/../avr/include/technophilia/delay.h **** 
+  28:c:/winavr/bin/../avr/include/technophilia/delay.h **** void delayus(unsigned int delaytime)
+  29:c:/winavr/bin/../avr/include/technophilia/delay.h **** {
+ 138               	ts delaycounter1,__zero_reg__
+ 139               		ldi r18,lo8(0)
+ 140               		ldi r19,hi8(0)
+ 141               	.L12:
+  30:c:/winavr/bin/../avr/include/technophilia/delay.h **** 
+  31:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	 for(delaycounter1=0;delaycounter1<=delaytime;delaycounter1++)
+ 142               	abn	68,0,34,.LM9-delayus
+ 143               	.LM9:
+ 144 0050 1092 0000 	/* #APP */
+ 145 0054 1092 0000 		nop
+ 146 0058 20E0      		nop
+ 147 005a 30E0      		nop
+ 148               		nop
+  32:c:/winavr/bin/../avr/include/technophilia/delay.h **** 	 {
+  33:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		 
+  34:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+ 149               	op
+ 151               	.LM10:
+ 152 005c 0000      		nop
+ 153 005e 0000      		nop
+ 154 0060 0000      		nop
+ 155 0062 0000      		nop
+ 156 0064 0000      	/* #NOAPP */
+ 157 0066 0000      		subi r18,lo8(-(1))
+  35:c:/winavr/bin/../avr/include/technophilia/delay.h **** 		  asm("nop");asm("nop");asm("nop");asm("nop");
+ 158               	,hi8(-(1))
+ 160 0068 0000      	.LM11:
+ 161 006a 0000      		cp r24,r18
+ 162 006c 0000      		cpc r25,r19
+ 163 006e 0000      		brsh .L12
+ 164               		sts (delaycounter1)+1,r19
+ 165 0070 2F5F      		sts delaycounter1,r18
+ 166 0072 3F4F      	/* epilogue: frame size=0 */
+ 167               		ret
+ 168               	/* epilogue end (size=1) */
+ 169 0074 8217      	/* function delayus size 36 (35) */
+ 171 0078 00F4      	.Lscope1:
+ 174               	.global	dely_ns
+ 176               	dely_ns:
+ 178               	.Ltext2:
+ 180               	.LM12:
+ 181               	/* prologue: frame size=0 */
+ 182               	/* prologue end (size=0) */
+ 184               	.LM13:
+ 185               		sts j,__zero_reg__
+ 186               		lds r18,k
+   1:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+   2:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+   3:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+   4:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	This header files have implementation of some common finctions of the LCD.
+   5:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+   6:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+   7:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+   8:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+   9:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_init() ----- Call the lcd_init() function before calling any other functions
+  10:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  to initialize the lcd.
+  11:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_cmd() ------ This function is used to give any command instructions to the
+  12:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  LCD. For e.g lcd_cmd(0x01) will give the clear command.
+  13:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_char() ----- This function will display a single character on the LCD display.
+  14:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  For example lcd_char(0x61) will display A. Again lcd_char('b')
+  15:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  will display b.
+  16:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_string()---- This function will display a string. An example of this would be
+  17:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  like lcd_string("This is AVR")
+  18:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_showvalue()- This will show a 3-digit decimal value on the LCD. For example if
+  19:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  we give lcd_showvalue(0xFF) then 255 will be displayed.
+  20:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_gotoxy()--- Will set the cursor at a particular position on of the LCD.
+  21:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  So lcd_gotoxy(1,4) will set the cursor at the 2d row 3rd column
+  22:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  row and column address are starts from(0,0)
+  23:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_clear()---To clear the LCD
+  24:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	
+  25:c:/winavr/bin/../avr/include/technophilia/lcd.h **** */
+  26:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  27:c:/winavr/bin/../avr/include/technophilia/lcd.h **** #ifndef _LCD_H_
+  28:c:/winavr/bin/../avr/include/technophilia/lcd.h **** #define _LCD_H_
+  29:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  30:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  31:c:/winavr/bin/../avr/include/technophilia/lcd.h **** unsigned char k=0,j=0;
+  32:c:/winavr/bin/../avr/include/technophilia/lcd.h **** unsigned char save=0;
+  33:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  34:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_init(void);
+  35:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_cmd(unsigned char cmd);
+  36:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void latch(void);
+  37:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void dely_ns(unsigned char tim);
+  38:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_char(unsigned char single);
+  39:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_string(unsigned char str[32]);
+  40:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_showvalue(unsigned char num);
+  41:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_gotoxy(unsigned char row,unsigned char column);
+  42:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void delay_ms(unsigned int ms);
+  43:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_clear();
+  44:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  45:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_init(void)	//init the lcd
+  46:c:/winavr/bin/../avr/include/technophilia/lcd.h **** {	
+  47:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	delay_ms(20);
+  48:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	save=PORTC;
+  49:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	DDRC=0xFF;
+  50:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	DDRB=0xFF;
+  51:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	delay_ms(15);
+  52:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	PORTC=0x20;
+  53:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_cmd(0x01);
+  54:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_cmd(0x02);
+  55:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_cmd(0X80);
+  56:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	delay_ms(20);
+  57:c:/winavr/bin/../avr/include/technophilia/lcd.h **** }
+  58:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  59:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void latch(void)
+  60:c:/winavr/bin/../avr/include/technophilia/lcd.h **** {
+  61:c:/winavr/bin/../avr/include/technophilia/lcd.h **** PORTC&=~0x04;
+  62:c:/winavr/bin/../avr/include/technophilia/lcd.h **** dely_ns(200);  
+  63:c:/winavr/bin/../avr/include/technophilia/lcd.h **** PORTC|=0x04;
+  64:c:/winavr/bin/../avr/include/technophilia/lcd.h **** dely_ns(200);  
+  65:c:/winavr/bin/../avr/include/technophilia/lcd.h **** PORTC&=~0x04;
+  66:c:/winavr/bin/../avr/include/technophilia/lcd.h **** }
+  67:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  68:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void dely_ns(unsigned char tim)
+  69:c:/winavr/bin/../avr/include/technophilia/lcd.h **** {
+ 187               	19:
+ 189               	.LM14:
+ 190               		subi r25,lo8(-(1))
+  70:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 0);  
+ 191               	 r18,lo8(11)
+ 192               	.L18:
+ 193 0084 1092 0000 		cp r25,r24
+ 194 0088 2091 0000 		brlo .L19
+ 195 008c 90E0      		sts k,r18
+ 196 008e 00C0      		sts j,r25
+ 197               	/* epilogue: frame size=0 */
+ 198               		ret
+ 199               	/* epilogue end (size=1) */
+ 200 0090 9F5F      	/* function dely_ns size 15 (14) */
+ 202               	.Lscope2:
+ 204 0096 00F0      	.global	latch
+ 206 009c 9093 0000 	latch:
+ 208 00a0 0895      	.LM15:
+ 209               	/* prologue: frame size=0 */
+ 210               	/* prologue end (size=0) */
+ 212               	.LM16:
+ 213               		cbi 53-0x20,2
+ 215               	.LM17:
+ 216               		ldi r24,lo8(-56)
+ 217               		call dely_ns
+ 219               	.LM18:
+ 220               		sbi 53-0x20,2
+ 222               	.LM19:
+ 223 00a2 AA98      		ldi r24,lo8(-56)
+ 224               		call dely_ns
+ 226 00a4 88EC      	.LM20:
+ 227 00a6 0E94 0000 		cbi 53-0x20,2
+ 228               	/* epilogue: frame size=0 */
+ 229               		ret
+ 230 00aa AA9A      	/* epilogue end (size=1) */
+ 231               	/* function latch size 10 (9) */
+ 233 00ac 88EC      	.Lscope3:
+ 236               	.global	lcd_cmd
+ 238               	lcd_cmd:
+ 240               	.LM21:
+ 241               	/* prologue: frame size=0 */
+ 242               		push r16
+ 243               		push r17
+ 244               	/* prologue end (size=2) */
+ 245               		mov r16,r24
+ 247               	.LM22:
+ 248               		in r24,53-0x20
+  71:c:/winavr/bin/../avr/include/technophilia/lcd.h **** md(0x02);
+  72:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_cmd(0X80);
+  73:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	delay_ms(20);
+  74:c:/winavr/bin/../avr/include/technophilia/lcd.h **** }
+  75:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  76:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void latch(void)
+  77:c:/winavr/bin/../avr/include/technophilia/lcd.h **** {
+  78:c:/winavr/bin/../avr/include/technophilia/lcd.h **** PORTC&=~0x04;
+ 249               	cd_cmd
+ 250               	.LM23:
+ 251               		mov r24,r16
+ 252 00b6 0F93      		andi r24,lo8(-16)
+ 253 00b8 1F93      		out 53-0x20,r24
+ 255 00ba 082F      	.LM24:
+  79:c:/winavr/bin/../avr/include/technophilia/lcd.h **** cmd(0x01);
+ 256               	atch
+ 258 00bc 85B3      	.LM25:
+ 259 00be 887F      		clr r17
+ 260 00c0 85BB      		andi r16,lo8(15)
+  80:c:/winavr/bin/../avr/include/technophilia/lcd.h **** cd
+ 261               	 r17,hi8(15)
+ 262               		ldi r24,4
+ 263 00c2 802F      	1:	lsl r16
+ 264 00c4 807F      		rol r17
+ 265 00c6 85BB      		dec r24
+  81:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ,unsigned char column);
+ 266               	 1b
+ 267               		out 53-0x20,r16
+  82:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ed char str[32]);
+ 269               	26:
+ 270               		call latch
+ 271 00cc 1127      	/* epilogue: frame size=0 */
+ 272 00ce 0F70      		pop r17
+ 273 00d0 1070      		pop r16
+ 274 00d2 84E0      		ret
+ 275 00d4 000F      	/* epilogue end (size=3) */
+ 276 00d6 111F      	/* function lcd_cmd size 25 (20) */
+ 278 00da 01F4      	.Lscope4:
+  83:c:/winavr/bin/../avr/include/technophilia/lcd.h **** oid);
+ 280               	ngle:P(0,11)",64,0,0,17
+ 281               	.global	lcd_char
+ 283               	lcd_char:
+ 285 00e4 0F91      	.LM27:
+ 286 00e6 0895      	/* prologue: frame size=0 */
+ 287               		push r17
+ 288               	/* prologue end (size=1) */
+ 289               		mov r17,r24
+ 291               	.LM28:
+ 292               		ldi r24,lo8(1)
+ 293               		out 53-0x20,r24
+ 295               	.LM29:
+  84:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  85:c:/winavr/bin/../avr/include/technophilia/lcd.h **** unsigned char k=0,j=0;
+  86:c:/winavr/bin/../avr/include/technophilia/lcd.h **** unsigned char save=0;
+  87:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+  88:c:/winavr/bin/../avr/include/technophilia/lcd.h **** void lcd_init(void);
+ 296               	ero_reg__
+ 298               	.LM30:
+ 299 00e8 1F93      		mov r24,r17
+ 300               		andi r24,lo8(-16)
+ 301 00ea 182F      		ori r24,lo8(1)
+  89:c:/winavr/bin/../avr/include/technophilia/lcd.h **** lear the LCD
+ 302               	3-0x20,r24
+ 304 00ec 81E0      	.LM31:
+ 305 00ee 85BB      		call latch
+  90:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 1,4) will set the cursor at the 2d row 3rd column
+ 306               	abn	68,0,93,.LM32-lcd_char
+ 307               	.LM32:
+ 308 00f0 15BA      		swap r17
+  91:c:/winavr/bin/../avr/include/technophilia/lcd.h **** --- Will set the cursor at a particular position on of the LCD.
+ 309               	di r17,0xf0
+ 310               		ori r17,lo8(1)
+ 311 00f2 812F      		out 53-0x20,r17
+ 313 00f6 8160      	.LM33:
+ 314 00f8 85BB      		call latch
+  92:c:/winavr/bin/../avr/include/technophilia/lcd.h ****  we give lcd_showvalue(0xFF) then 255 will be displayed.
+ 315               	logue: frame size=0 */
+ 316               		pop r17
+ 317 00fa 0E94 0000 		ret
+  93:c:/winavr/bin/../avr/include/technophilia/lcd.h **** alue()- This will show a 3-digit decimal value on the LCD. For example if
+ 318               	epilogue end (size=2) */
+ 319               	/* function lcd_char size 19 (16) */
+ 321 0100 107F      	.Lscope5:
+  94:c:/winavr/bin/../avr/include/technophilia/lcd.h **** f this would be
+ 324               	l	lcd_string
+ 326 0106 0E94 0000 	lcd_string:
+ 328 010a 1F91      	.LM34:
+ 329 010c 0895      	/* prologue: frame size=0 */
+ 330               		push r14
+ 331               		push r15
+ 332               		push r16
+ 333               		push r17
+ 334               		push r28
+ 335               		push r29
+ 336               	/* prologue end (size=6) */
+ 337               		movw r14,r24
+  95:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ll display A. Again lcd_char('b')
+  96:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  will display b.
+  97:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_string()---- This function will display a string. An example of this would be
+  98:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  like lcd_string("This is AVR")
+ 339               	,lo8(1)
+ 340               		out 53-0x20,r24
+ 342 010e EF92      	.LM36:
+ 343 0110 FF92      		out 53-0x20,__zero_reg__
+ 344 0112 0F93      		ldi r16,lo8(0)
+ 345 0114 1F93      		ldi r17,hi8(0)
+ 346 0116 CF93      		rjmp .L29
+ 347 0118 DF93      	.L30:
+ 349 011a 7C01      	.LM37:
+  99:c:/winavr/bin/../avr/include/technophilia/lcd.h ****   will display b.
+ 100:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	lcd_string()---- This function will display a string. An example of this would be
+ 350               	8(16)
+ 351               		brne .L31
+ 353 011e 85BB      	.LM38:
+ 101:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ll display A. Again lcd_char('b')
+ 354               	 r24,lo8(-64)
+ 355               		call lcd_cmd
+ 356 0120 15BA      	.L31:
+ 358 0124 10E0      	.LM39:
+ 359 0126 00C0      		ld r24,Y
+ 360               		andi r24,lo8(-16)
+ 102:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ----- This function will display a single character on the LCD display.
+ 103:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  For example lcd_char(0x61) will display A. Again lcd_char('b')
+ 104:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 			  will display b.
+ 361               	4,lo8(1)
+ 362               		out 53-0x20,r24
+ 364 012a 01F4      	.LM40:
+ 105:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ll display a single character on the LCD display.
+ 365               	l latch
+ 367 012c 80EC      	.LM41:
+ 368 012e 0E94 0000 		ld r24,Y
+ 369               		swap r24
+ 106:c:/winavr/bin/../avr/include/technophilia/lcd.h ****  LCD. For e.g lcd_cmd(0x01) will give the clear command.
+ 370               	 r24,0xf0
+ 371               		ori r24,lo8(1)
+ 372 0132 8881      		out 53-0x20,r24
+ 374 0136 8160      	.LM42:
+ 375 0138 85BB      		call latch
+ 107:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 376               	r16,lo8(-(1))
+ 377               		sbci r17,hi8(-(1))
+ 378 013a 0E94 0000 	.L29:
+ 108:c:/winavr/bin/../avr/include/technophilia/lcd.h **** unctions to initialize the lcd.
+ 379               	v r25,r16
+ 381 013e 8881      	.LM43:
+ 382 0140 8295      		movw r28,r14
+ 383 0142 807F      		add r28,r16
+ 384 0144 8160      		adc r29,__zero_reg__
+ 385 0146 85BB      		ld r24,Y
+ 109:c:/winavr/bin/../avr/include/technophilia/lcd.h **** tions of the LCD.
+ 386               	4
+ 387               		brne .L30
+ 388 0148 0E94 0000 	/* epilogue: frame size=0 */
+ 389 014c 0F5F      		pop r29
+ 390 014e 1F4F      		pop r28
+ 391               		pop r17
+ 392 0150 902F      		pop r16
+ 393               		pop r15
+ 394               		pop r14
+ 395 0152 E701      		ret
+ 396 0154 C00F      	/* epilogue end (size=7) */
+ 397 0156 D11D      	/* function lcd_string size 47 (34) */
+ 402 015e DF91      	.Lscope6:
+ 405 0164 0F91      	.global	lcd_showvalue
+ 407 0168 EF90      	lcd_showvalue:
+ 409               	.LM44:
+ 410               	/* prologue: frame size=0 */
+ 411               		push r13
+ 412               		push r14
+ 413               		push r15
+ 414               		push r16
+ 415               		push r17
+ 416               	/* prologue end (size=5) */
+ 417               		mov r13,r24
+ 419               	.LM45:
+ 420               		ldi r22,lo8(100)
+ 110:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 111:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 112:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 113:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	This header files have implementation of some common finctions of the LCD.
+ 114:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 115:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+ 116:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 421               	tabn	68,0,119,.LM46-lcd_showvalue
+ 422               	.LM46:
+ 423               		ldi r25,lo8(100)
+ 424 016c DF92      		mov r14,r25
+ 425 016e EF92      		mul r24,r14
+ 426 0170 FF92      		movw r14,r0
+ 427 0172 0F93      		clr r1
+ 428 0174 1F93      		mov r24,r13
+ 429               		clr r25
+ 430 0176 D82E      		sub r24,r14
+ 117:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ons of the LCD.
+ 118:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 431               	15
+ 432               		ldi r22,lo8(10)
+ 433 0178 64E6      		ldi r23,hi8(10)
+ 434 017a 0E94 0000 		call __divmodhi4
+ 435 017e 282F      		movw r16,r22
+ 119:c:/winavr/bin/../avr/include/technophilia/lcd.h ****  header files have implementation of some common finctions of the LCD.
+ 436               	bn	68,0,122,.LM47-lcd_showvalue
+ 437               	.LM47:
+ 438 0180 94E6      		mov r24,r18
+ 439 0182 E92E      		subi r24,lo8(-(48))
+ 440 0184 8E9D      		call lcd_char
+ 442 0188 1124      	.LM48:
+ 443 018a 8D2D      		mov r24,r16
+ 444 018c 9927      		subi r24,lo8(-(48))
+ 445 018e 8E19      		call lcd_char
+ 447 0192 6AE0      	.LM49:
+ 448 0194 70E0      		sub r13,r14
+ 449 0196 0E94 0000 		ldi r24,lo8(10)
+ 450 019a 8B01      		mul r16,r24
+ 120:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 121:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 122:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 451               	lr r1
+ 452               		sub r13,r24
+ 453 019c 822F      		mov r24,r13
+ 454 019e 805D      		subi r24,lo8(-(48))
+ 455 01a0 0E94 0000 		call lcd_char
+ 123:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 456               	ilogue: frame size=0 */
+ 457               		pop r17
+ 458 01a4 802F      		pop r16
+ 459 01a6 805D      		pop r15
+ 460 01a8 0E94 0000 		pop r14
+ 124:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 461               	r13
+ 462               		ret
+ 463 01ac DE18      	/* epilogue end (size=6) */
+ 464 01ae 8AE0      	/* function lcd_showvalue size 48 (37) */
+ 469 01b8 8D2D      	.Lscope7:
+ 473 01c0 1F91      	.global	lcd_gotoxy
+ 475 01c4 FF90      	lcd_gotoxy:
+ 477 01c8 DF90      	.LM50:
+ 478 01ca 0895      	/* prologue: frame size=0 */
+ 479               	/* prologue end (size=0) */
+ 481               	.LM51:
+ 482               		tst r24
+ 483               		brne .L38
+ 485               	.LM52:
+ 486               		mov r24,r22
+ 487               		subi r24,lo8(-(-128))
+ 488               		call lcd_cmd
+ 489               		ret
+ 490               	.L38:
+ 125:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 126:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 127:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 128:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	This header files have implementation of some common finctions of the LCD.
+ 492               	42
+ 494               	.LM54:
+ 495               		mov r24,r22
+ 129:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 496               	.LM52:
+ 497               		mov r24,r22
+ 498 01cc 8823      		subi r24,lo8(-(-128))
+ 499 01ce 01F4      		call lcd_cmd
+ 130:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 131:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 500               	e: frame size=0 */
+ 501               	/* prologue end (size=0) */
+ 503 01d2 8058      	.LM51:
+ 504 01d4 0E94 0000 		tst r24
+ 505 01d8 0895      		brne .L38
+ 132:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 133:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 507               	d_gotoxy:
+ 509 01da 8130      	.LM50:
+ 510 01dc 01F4      	/* prologue: frame size=0 */
+ 134:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 135:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 511               	,lcd_gotoxy
+ 514 01e0 8054      	.global	lcd_gotoxy
+ 516               	lcd_gotoxy:
+ 518               	.LM50:
+ 519               	/* prologue: frame size=0 */
+ 520               	/* prologue end (size=0) */
+ 522               	.LM51:
+ 523               		tst r24
+ 524               		brne .L38
+ 526               	.LM52:
+ 527               		mov r24,r22
+ 528               		subi r24,lo8(-(-128))
+ 136:c:/winavr/bin/../avr/include/technophilia/lcd.h **** /*	LCD.h
+ 137:c:/winavr/bin/../avr/include/technophilia/lcd.h **** Technophilia embedded systems
+ 138:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 139:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	This header files have implementation of some common finctions of the LCD.
+ 140:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 141:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+ 529               	
+ 530               	.L38:
+ 532               	.LM53:
+ 533 01e8 00C0      		cpi r24,lo8(1)
+ 534               		brne .L42
+ 142:c:/winavr/bin/../avr/include/technophilia/lcd.h **** tions of the LCD.
+ 143:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 144:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+ 535               	1:
+ 536               		tst r24
+ 537 01ea 20E0      		brne .L38
+ 539               	.LM52:
+ 145:c:/winavr/bin/../avr/include/technophilia/lcd.h **** tions of the LCD.
+ 146:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 147:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+ 148:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 540               	:
+ 542               	.LM50:
+ 543 01ee 0000      	/* prologue: frame size=0 */
+ 544               	/* prologue end (size=0) */
+ 546               	.LM51:
+ 547 01f0 2F5F      		tst r24
+ 548 01f2 3F4F      		brne .L38
+ 550 01f6 2C3C      	.LM52:
+ 551 01f8 3407      		mov r24,r22
+ 552 01fa 01F4      		subi r24,lo8(-(-128))
+ 553               		call lcd_cmd
+ 554               		ret
+ 555               	.L38:
+ 557 01fe 2FEF      	.LM53:
+ 558 0200 8F3F      		cpi r24,lo8(1)
+ 559 0202 9207      		brne .L42
+ 561               	.LM54:
+ 562 0206 0895      		mov r24,r22
+ 563               		subi r24,lo8(-(-64))
+ 564               		call lcd_cmd
+ 565               	.L42:
+ 566               		ret
+ 567               	/* epilogue: frame size=0 */
+ 568               	/* epilogue: noreturn */
+ 569               	/* epilogue end (size=0) */
+ 570               	/* function lcd_gotoxy size 14 (14) */
+ 572               	.Lscope8:
+ 575               	.global	delay_ms
+ 577               	delay_ms:
+ 579               	.LM55:
+ 580 0208 84E1      	/* prologue: frame size=0 */
+ 581 020a 90E0      	/* prologue end (size=0) */
+ 582 020c 0E94 0000 		rjmp .L44
+ 583               	.L45:
+ 585 0210 85B3      	.LM56:
+ 586 0212 8093 0000 		ldi r18,lo8(0)
+ 587               		ldi r19,hi8(0)
+ 588               	.L46:
+ 590 0218 84BB      	.LM57:
+ 591               	/* #APP */
+ 592               		nop
+ 594               	.LM58:
+ 595               	/* #NOAPP */
+ 596 021c 8FE0      		subi r18,lo8(-(1))
+ 597 021e 90E0      		sbci r19,hi8(-(1))
+ 598 0220 0E94 0000 		ldi r20,hi8(3276)
+ 599               		cpi r18,lo8(3276)
+ 600               		cpc r19,r20
+ 601 0224 80E2      		brne .L46
+ 602 0226 85BB      	.L44:
+ 604               	.LM59:
+ 605 0228 81E0      		sbiw r24,1
+ 606 022a 0E94 0000 		ldi r18,hi8(-1)
+ 607               		cpi r24,lo8(-1)
+ 608               		cpc r25,r18
+ 609 022e 82E0      		brne .L45
+ 610 0230 0E94 0000 	/* epilogue: frame size=0 */
+ 611               		ret
+ 612               	/* epilogue end (size=1) */
+ 613 0234 80E8      	/* function delay_ms size 17 (16) */
+ 618 023c 90E0      	.Lscope9:
+ 620               	.global	lcd_init
+ 622               	lcd_init:
+ 624               	.LM60:
+ 625               	/* prologue: frame size=0 */
+ 626               	/* prologue end (size=0) */
+ 628               	.LM61:
+ 629               		ldi r24,lo8(20)
+ 149:c:/winavr/bin/../avr/include/technophilia/lcd.h **** ons of the LCD.
+ 150:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	Include this header file in your C code. Call the lcd_init() function before
+ 151:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 	calling any other functions to initialize the lcd.
+ 152:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 153:c:/winavr/bin/../avr/include/technophilia/lcd.h **** 
+ 630               	nit
+ 631               	.LM60:
+ 632               	/* prologue: frame size=0 */
+ 633               	/* prologue end (size=0) */
+ 154:c:/winavr/bin/../avr/include/technophilia/lcd.h **** s of the LCD.
+ 634               		lcd_init, @function
+ 635               	lcd_init:
+ 637 0246 0E94 0000 	.LM60:
+ 638               	/* prologue: frame size=0 */
+ 639 024a 0895      	/* prologue end (size=0) */
+ 641               	.LM61:
+ 642               		ldi r24,lo8(20)
+ 643               		ldi r25,hi8(20)
+ 644               		call delay_ms
+ 646 0000 5445 4348 	.LM62:
+ 646      4E4F 5048 
+ 646      494C 4941 
+ 646      00
+ 647               		in r24,53-0x20
+ 648               		sts save,r24
+ 650               	.LM63:
+ 651               		ldi r24,lo8(-1)
+ 652               		out 52-0x20,r24
+   1:main.c        **** //printing a string in LCD
+   2:main.c        **** #include<avr/io.h>
+   3:main.c        **** #include<technophilia/delay.h>
+   4:main.c        **** #include<technophilia/lcd.h>	//header file for interfacing LCD
+   5:main.c        **** int main()
+   6:main.c        ****  {
+ 654               	save,r24
+ 656               	.LM63:
+ 657               		ldi r24,lo8(-1)
+   7:main.c        ****   lcd_init();					//function to initialize the LCD
+ 658               	8,0,48,.LM62-lcd_init
+ 659               	.LM62:
+ 660 024c 0E94 0000 		in r24,53-0x20
+   8:main.c        ****   lcd_string("TECHNOPHILIA");	//function to print a string
+ 661               	cd_init
+ 662               	.LM61:
+ 663 0250 80E0      		ldi r24,lo8(20)
+ 664 0252 90E0      		ldi r25,hi8(20)
+ 665 0254 0E94 0000 		call delay_ms
+ 667 0258 00C0      	.LM62:
+ 668               		in r24,53-0x20
+ 669               		sts save,r24
+ 671               	.LM63:
+ 672               		ldi r24,lo8(-1)
+ 673               		out 52-0x20,r24
+ 675               	.LM64:
+ 676               		out 55-0x20,r24
+ 678               	.LM65:
+ 679               		ldi r24,lo8(15)
+ 680 0000 00        		ldi r25,hi8(15)
+ 681               		call delay_ms
+ 683               	.LM66:
+ 684               		ldi r24,lo8(32)
+ 685               		out 53-0x20,r24
+ 687               	.LM67:
+ 688               		ldi r24,lo8(1)
+ 689               		call lcd_cmd
+ 691               	.LM68:
+ 692 0002 00        		ldi r24,lo8(2)
+ 693               		call lcd_cmd
+ 695               	.LM69:
+ 696               		ldi r24,lo8(-128)
+ 697               		call lcd_cmd
+ 699               	.LM70:
+ 700               		ldi r24,lo8(20)
+ 701               		ldi r25,hi8(20)
+ 702               		call delay_ms
+ 703               	/* epilogue: frame size=0 */
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:71     .text:00000000 delayms
+                            *COM*:00000002 delaycounter1
+                            *COM*:00000002 delaycounter2
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:137    .text:00000050 delayus
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:184    .text:00000084 dely_ns
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:685    .bss:00000001 j
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:679    .bss:00000000 k
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:216    .text:000000a2 latch
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:248    .text:000000b6 lcd_cmd
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:295    .text:000000e8 lcd_char
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:338    .text:0000010e lcd_string
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:420    .text:0000016c lcd_showvalue
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:491    .text:000001cc lcd_gotoxy
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:528    .text:000001e8 delay_ms
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:573    .text:00000208 lcd_init
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:691    .bss:00000002 save
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:629    .text:00000244 lcd_clear
+C:\DOCUME~1\USER\LOCALS~1\Temp/ccmIaaaa.s:651    .text:0000024c main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__udivmodqi4
+__divmodhi4

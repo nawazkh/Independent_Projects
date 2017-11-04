@@ -1,0 +1,54 @@
+   1               		.file	"main.c"
+   2               		.arch atmega8535
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  68               	.global	main
+  70               	main:
+   1:main.c        **** //Program to send data 0x05 on port C
+   2:main.c        **** 
+   3:main.c        **** #include<avr/io.h>			//basic header file for avr micro controllers
+   4:main.c        **** 
+   5:main.c        **** int main(void)
+   6:main.c        **** {
+  71               		main, @function
+  72               	main:
+  74               	.LM0:
+   7:main.c        **** 	
+   8:main.c        **** 	DDRC=0b11110000;			// data direction declaration of port C higher bits as output port.	
+  75               	,0,6,.LM0-main
+  76               	.LM0:
+  77 0000 80EF      	/* prologue: frame size=0 */
+  78 0002 84BB      	/* prologue end (size=0) */
+   9:main.c        **** 	PORTC=0b01010000;			//sending data (01010000) to port C
+  79               	ue end (size=0) */
+  81 0004 80E5      	.LM1:
+  82 0006 85BB      		ldi r24,lo8(-16)
+  83               		out 52-0x20,r24
+  85               	.LM2:
+  86               		ldi r24,lo8(80)
+  87               		out 53-0x20,r24
+  88               	.L2:
+  89               		rjmp .L2
+  90               	/* epilogue: frame size=0 */
+  91               	/* epilogue: noreturn */
+  92               	/* epilogue end (size=0) */
+  93               	/* function main size 5 (5) */
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccDlksks.s:70     .text:00000000 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

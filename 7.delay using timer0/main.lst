@@ -1,0 +1,97 @@
+   1               		.file	"main.c"
+   2               		.arch atmega8535
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  68               	.global	__vector_9
+  70               	__vector_9:
+   1:main.c        **** //Genarating time delay using timer
+   2:main.c        **** #include<avr/io.h>		//This is the header for AVR Microcontroller.
+   3:main.c        **** #include<avr/interrupt.h>
+   4:main.c        **** 
+   5:main.c        **** ISR (TIMER0_OVF_vect) //void timer0_ovf_isr(void)
+   6:main.c        **** {
+  71               	h __zero_reg__
+  72               		push __tmp_reg__
+  73               		in __tmp_reg__,__SREG__
+  74 0000 1F92      		push __tmp_reg__
+  75 0002 0F92      		clr __zero_reg__
+  76 0004 0FB6      		push r24
+  77 0006 0F92      		push r25
+  78 0008 1124      	/* prologue end (size=7) */
+  80 000c 9F93      	.LM1:
+  81               		in r24,53-0x20
+   7:main.c        **** 	
+   8:main.c        **** 	PORTC^=0x18; 
+  82               	
+  84 000e 85B3      	.LM1:
+  85 0010 98E1      		in r24,53-0x20
+  86 0012 8927      		ldi r25,lo8(24)
+  87 0014 85BB      		eor r24,r25
+  88               		out 53-0x20,r24
+  89 0016 9F91      	/* epilogue: frame size=0 */
+  90 0018 8F91      		pop r25
+  91 001a 0F90      		pop r24
+  92 001c 0FBE      		pop __tmp_reg__
+  93 001e 0F90      		out __SREG__,__tmp_reg__
+  94 0020 1F90      		pop __tmp_reg__
+  95 0022 1895      		pop __zero_reg__
+  96               		reti
+  97               	/* epilogue end (size=7) */
+  98               	/* function __vector_9 size 18 (4) */
+ 100               	.Lscope0:
+ 102               	.global	main
+   9:main.c        **** }
+  10:main.c        **** 
+  11:main.c        **** 
+  12:main.c        **** int main(void)         
+  13:main.c        **** {
+ 104               	.global	main
+ 106               	main:
+  14:main.c        **** 	DDRC=0xF8; 			// Port B data direction configuration as output port.
+ 108               	n
+ 109               	main:
+ 111 0026 84BB      	.LM2:
+  15:main.c        **** 	TIMSK=0x01;			//This is for interrupt enable for timer0.
+ 112               	
+ 114 0028 81E0      	.LM2:
+ 115 002a 89BF      	/* prologue: frame size=0 */
+  16:main.c        **** 	TCCR0=0x05;			//This is for timer0 initialization.
+ 116               	2:
+ 117               	/* prologue: frame size=0 */
+ 118 002c 85E0      	/* prologue end (size=0) */
+  17:main.c        **** 	TCNT0=0x00;
+ 120               	 */
+ 122 0030 12BE      	.LM3:
+  18:main.c        **** 	sei();
+ 123               	tabn	68,0,14,.LM3-main
+ 124               	.LM3:
+ 125               		ldi r24,lo8(-8)
+ 126 0032 7894      		out 52-0x20,r24
+ 128               	.LM4:
+ 129 0034 00C0      		ldi r24,lo8(1)
+ 130               		out 89-0x20,r24
+ 132               	.LM5:
+ 133               		ldi r24,lo8(5)
+ 134               		out 83-0x20,r24
+ 136               	.LM6:
+ 137               		out 82-0x20,__zero_reg__
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:70     .text:00000000 __vector_9
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccCtt6yO.s:103    .text:00000024 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

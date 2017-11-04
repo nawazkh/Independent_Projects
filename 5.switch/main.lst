@@ -1,0 +1,60 @@
+   1               		.file	"main.c"
+   2               		.arch atmega8535
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  68               	.global	main
+  70               	main:
+   1:main.c        **** //Taking input from a port
+   2:main.c        **** #include<avr/io.h>				//This is the header for AVR Microcontroller.
+   3:main.c        **** int main(void)
+   4:main.c        **** {
+  71               	
+  73               	main:
+   5:main.c        **** 	DDRC=0xF0;					// Port B data direction configuration as output port.
+  75               	in:
+  77 0000 80EF      	.LM0:
+  78 0002 84BB      	/* prologue: frame size=0 */
+   6:main.c        **** 	PORTA=0xFF;					// configuering the PORTA in pullup mode.
+  79               	 prologue: frame size=0 */
+  80               	/* prologue end (size=0) */
+  82 0006 8BBB      	.LM1:
+   7:main.c        **** 	DDRA=0x00;					// Port A data direction configuration as input port.
+  83               		68,0,5,.LM1-main
+  84               	.LM1:
+  85 0008 1ABA      		ldi r24,lo8(-16)
+  86               		out 52-0x20,r24
+   8:main.c        **** 	
+   9:main.c        **** 	while(1)
+  10:main.c        **** 	{
+  11:main.c        **** 		
+  12:main.c        **** 	PORTC=PINA;
+  87               	-16)
+  88               		out 52-0x20,r24
+  90 000c 85BB      	.LM2:
+  91 000e 00C0      		ldi r24,lo8(-1)
+  92               		out 59-0x20,r24
+  94               	.LM3:
+  95               		out 58-0x20,__zero_reg__
+  96               	.L2:
+  98               	.LM4:
+  99               		in r24,57-0x20
+ 100               		out 53-0x20,r24
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccyrl4oG.s:70     .text:00000000 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

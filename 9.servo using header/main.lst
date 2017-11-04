@@ -1,0 +1,647 @@
+   1               		.file	"main.c"
+   2               		.arch atmega8535
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  69               	.global	delayms
+  71               	delayms:
+  73               	.Ltext1:
+   1:delay.h       **** /*	LCD.h
+   2:delay.h       **** Technophilia embedded systems
+   3:delay.h       **** 
+   4:delay.h       **** 	this header file provides time delay in the form of mili second and micro second
+   5:delay.h       **** 	without affecting any interrupts.
+   6:delay.h       **** 
+   7:delay.h       **** 	delayms()  this function provides delay in the form of mili second
+   8:delay.h       **** 	delayus()  this function provides delay in the form of micro second
+   9:delay.h       **** 	
+  10:delay.h       **** */
+  11:delay.h       **** #ifndef _DELAY_H_
+  12:delay.h       **** #define _DELAY_H_
+  13:delay.h       **** unsigned int delaycounter1,delaycounter2;
+  14:delay.h       **** void delayms(unsigned int delaytime)
+  15:delay.h       **** {
+  74               	ue end (size=0) */
+  76               	.LM1:
+  77               		sts (delaycounter1)+1,__zero_reg__
+  16:delay.h       **** 
+  17:delay.h       **** 	 for(delaycounter1=0;delaycounter1<=delaytime;delaycounter1++)
+  78               	 delaycounter1,__zero_reg__
+  79               		ldi r18,lo8(0)
+  80 0000 1092 0000 		ldi r19,hi8(0)
+  81 0004 1092 0000 	.L2:
+  83 000a 30E0      	.LM2:
+  84               		ldi r20,lo8(0)
+  85               		ldi r21,hi8(0)
+  86               	.L3:
+  88 000e 50E0      	.LM3:
+  89               	/* #APP */
+  18:delay.h       **** 	 {
+  19:delay.h       **** 		 for(delaycounter2=0;delaycounter2<=800;delaycounter2++)
+  20:delay.h       **** 		  {
+  21:delay.h       **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+  90               	op
+  91               		nop
+  92               		nop
+  93 0010 0000      		nop
+  95 0014 0000      	.LM4:
+  96 0016 0000      		nop
+  97 0018 0000      		nop
+  98 001a 0000      		nop
+  22:delay.h       **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+  99               	
+ 100               		nop
+ 101 001c 0000      	/* #NOAPP */
+ 102 001e 0000      		subi r20,lo8(-(1))
+ 103 0020 0000      		sbci r21,hi8(-(1))
+ 105 0024 0000      	.LM5:
+ 106 0026 0000      		ldi r22,hi8(801)
+ 107               		cpi r20,lo8(801)
+ 108 0028 4F5F      		cpc r21,r22
+ 109 002a 5F4F      		brne .L3
+ 110               		subi r18,lo8(-(1))
+ 111               		sbci r19,hi8(-(1))
+ 113 002e 4132      	.LM6:
+ 114 0030 5607      		cp r24,r18
+ 115 0032 01F4      		cpc r25,r19
+ 116 0034 2F5F      		brsh .L2
+ 117 0036 3F4F      		sts (delaycounter1)+1,r19
+ 118               		sts delaycounter1,r18
+ 119               		sts (delaycounter2)+1,r21
+ 120 0038 8217      		sts delaycounter2,r20
+ 121 003a 9307      	/* epilogue: frame size=0 */
+ 122 003c 00F4      		ret
+ 123 003e 3093 0000 	/* epilogue end (size=1) */
+ 124 0042 2093 0000 	/* function delayms size 52 (51) */
+ 126 004a 4093 0000 	.Lscope0:
+ 129               	.global	delayus
+ 131               	delayus:
+ 133               	.LM7:
+ 134               	/* prologue: frame size=0 */
+ 135               	/* prologue end (size=0) */
+ 137               	.LM8:
+  23:delay.h       **** 		  }
+  24:delay.h       **** 		
+  25:delay.h       **** 	 }
+  26:delay.h       **** }
+  27:delay.h       **** 
+  28:delay.h       **** void delayus(unsigned int delaytime)
+  29:delay.h       **** {
+ 138               	ts delaycounter1,__zero_reg__
+ 139               		ldi r18,lo8(0)
+ 140               		ldi r19,hi8(0)
+ 141               	.L12:
+  30:delay.h       **** 
+  31:delay.h       **** 	 for(delaycounter1=0;delaycounter1<=delaytime;delaycounter1++)
+ 142               	abn	68,0,34,.LM9-delayus
+ 143               	.LM9:
+ 144 0050 1092 0000 	/* #APP */
+ 145 0054 1092 0000 		nop
+ 146 0058 20E0      		nop
+ 147 005a 30E0      		nop
+ 148               		nop
+  32:delay.h       **** 	 {
+  33:delay.h       **** 		 
+  34:delay.h       **** 		  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");
+ 149               	op
+ 151               	.LM10:
+ 152 005c 0000      		nop
+ 153 005e 0000      		nop
+ 154 0060 0000      		nop
+ 155 0062 0000      		nop
+ 156 0064 0000      	/* #NOAPP */
+ 157 0066 0000      		subi r18,lo8(-(1))
+  35:delay.h       **** 		  asm("nop");asm("nop");asm("nop");asm("nop");
+ 158               	,hi8(-(1))
+ 160 0068 0000      	.LM11:
+ 161 006a 0000      		cp r24,r18
+ 162 006c 0000      		cpc r25,r19
+ 163 006e 0000      		brsh .L12
+ 164               		sts (delaycounter1)+1,r19
+ 165 0070 2F5F      		sts delaycounter1,r18
+ 166 0072 3F4F      	/* epilogue: frame size=0 */
+ 167               		ret
+ 168               	/* epilogue end (size=1) */
+ 169 0074 8217      	/* function delayus size 36 (35) */
+ 171 0078 00F4      	.Lscope1:
+ 173 007e 2093 0000 	.global	servo_init
+ 175 0082 0895      	servo_init:
+ 177               	.Ltext2:
+ 179               	.LM12:
+ 180               	/* prologue: frame size=0 */
+ 181               	/* prologue end (size=0) */
+ 183               	.LM13:
+ 184               		ldi r24,lo8(3)
+ 185               		out 79-0x20,r24
+   1:servo.h       **** /*	SERVO.h
+   2:servo.h       **** Technophilia 
+   3:servo.h       **** 
+   4:servo.h       **** 	this header file will help you to controlle four servo moter at a single time.
+   5:servo.h       **** 
+   6:servo.h       **** 	
+   7:servo.h       **** */
+   8:servo.h       **** #ifndef _SERVO_H_
+   9:servo.h       **** #define _SERVO_H_
+  10:servo.h       **** 
+  11:servo.h       **** int i,j,k;   
+  12:servo.h       **** unsigned char m0h,m0l,m1h,m1l,m2h,m2l,m3h,m3l,x,y;
+  13:servo.h       **** unsigned char temp;
+  14:servo.h       **** void servo_init()
+  15:servo.h       **** {
+ 186               	init
+ 187               	.LM14:
+ 188               		ldi r24,lo8(26)
+ 189               		out 78-0x20,r24
+  16:servo.h       **** 
+  17:servo.h       **** TCCR1A=0x03;
+ 190               	abn	68,0,19,.LM15-servo_init
+ 191               	.LM15:
+ 192 0084 83E0      		out 77-0x20,__zero_reg__
+  18:servo.h       **** TCCR1B=0x1A;
+ 194               	6:
+ 195               		out 76-0x20,__zero_reg__
+ 197 008a 8EBD      	.LM17:
+  19:servo.h       **** TCNT1H=0x00;
+ 198               	 71-0x20,__zero_reg__
+ 200 008c 1DBC      	.LM18:
+  20:servo.h       **** TCNT1L=0x00;
+ 201               	t 70-0x20,__zero_reg__
+ 203 008e 1CBC      	.LM19:
+  21:servo.h       **** ICR1H=0x00;
+ 204               	i r24,lo8(39)
+ 205               		out 75-0x20,r24
+  22:servo.h       **** ICR1L=0x00;
+ 207               	20:
+ 208               		ldi r25,lo8(15)
+ 209 0092 16BC      		out 74-0x20,r25
+  23:servo.h       **** OCR1AH=0x27;
+ 210               	tabn	68,0,25,.LM21-servo_init
+ 211               	.LM21:
+ 212 0094 87E2      		ldi r24,lo8(29)
+ 213 0096 8BBD      		out 73-0x20,r24
+  24:servo.h       **** OCR1AL=0x0F;
+ 214               	abn	68,0,26,.LM22-servo_init
+ 215               	.LM22:
+ 216 0098 9FE0      		ldi r24,lo8(75)
+ 217 009a 9ABD      		out 72-0x20,r24
+  25:servo.h       **** OCR1BH=0x1D;
+ 218               	abn	68,0,27,.LM23-servo_init
+ 219               	.LM23:
+ 220 009c 8DE1      		ldi r24,lo8(24)
+ 221 009e 89BD      		out 89-0x20,r24
+  26:servo.h       **** OCR1BL=0x4B;
+ 222               	abn	68,0,28,.LM24-servo_init
+ 223               	.LM24:
+ 224 00a0 8BE4      		out 55-0x20,r25
+  27:servo.h       **** TIMSK=0x18;  
+ 226               	5:
+ 227               	/* #APP */
+ 228 00a4 88E1      		sei
+ 229 00a6 89BF      	/* #NOAPP */
+  28:servo.h       **** DDRB=0x0f;
+ 230               	pilogue: frame size=0 */
+ 231               		ret
+ 232 00a8 97BB      	/* epilogue end (size=1) */
+  29:servo.h       **** 
+  30:servo.h       **** sei(); 
+ 233               	function servo_init size 22 (21) */
+ 235               	.Lscope2:
+ 237               	.global	__vector_6
+ 239 00ac 0895      	__vector_6:
+ 241               	.LM26:
+ 242               	/* prologue: frame size=0 */
+ 243               		push __zero_reg__
+ 244               		push __tmp_reg__
+ 245               		in __tmp_reg__,__SREG__
+ 246               		push __tmp_reg__
+ 247               		clr __zero_reg__
+  31:servo.h       **** 
+  32:servo.h       **** }
+  33:servo.h       **** 
+  34:servo.h       **** ISR (TIMER1_COMPA_vect) //void timer1_compa_isr(void)
+  35:servo.h       **** {
+ 248               	 (size=5) */
+ 250               	.LM27:
+ 251 00ae 1F92      		out 56-0x20,__zero_reg__
+ 253 00b2 0FB6      	.LM28:
+ 254 00b4 0F92      		out 77-0x20,__zero_reg__
+ 256               	.LM29:
+  36:servo.h       **** PORTB=0X00;
+ 257               	x20,__zero_reg__
+ 258               	/* epilogue: frame size=0 */
+ 259 00b8 18BA      		pop __tmp_reg__
+  37:servo.h       **** TCNT1H=0x00;
+ 260               	t __SREG__,__tmp_reg__
+ 261               		pop __tmp_reg__
+ 262 00ba 1DBC      		pop __zero_reg__
+  38:servo.h       **** TCNT1L=0x00;
+ 263               	ti
+ 264               	/* epilogue end (size=5) */
+ 265 00bc 1CBC      	/* function __vector_6 size 13 (3) */
+ 267 00be 0F90      	.Lscope3:
+ 269 00c2 0F90      	.global	__vector_7
+ 271 00c6 1895      	__vector_7:
+ 273               	.LM30:
+ 274               	/* prologue: frame size=0 */
+ 275               		push __zero_reg__
+ 276               		push __tmp_reg__
+ 277               		in __tmp_reg__,__SREG__
+ 278               		push __tmp_reg__
+ 279               		clr __zero_reg__
+  39:servo.h       **** }
+  40:servo.h       **** 
+  41:servo.h       **** ISR (TIMER1_COMPB_vect) // void timer1_compb_isr(void)
+  42:servo.h       **** {
+ 280               	25
+ 281               	/* prologue end (size=7) */
+ 283 00c8 1F92      	.LM31:
+ 284 00ca 0F92      		lds r24,i
+ 285 00cc 0FB6      		lds r25,(i)+1
+ 286 00ce 0F92      		cpi r24,1
+ 287 00d0 1124      		cpc r25,__zero_reg__
+ 288 00d2 8F93      		breq .L24
+ 290               	.LM32:
+  43:servo.h       **** switch(i)
+ 291               		cpc r25,__zero_reg__
+ 292               		brge .L27
+ 293 00d6 8091 0000 		or r24,r25
+ 294 00da 9091 0000 		breq .L23
+ 295 00de 8130      		rjmp .L28
+ 296 00e0 9105      	.L27:
+ 297 00e2 01F0      		cpi r24,2
+ 298               		cpc r25,__zero_reg__
+ 299               		breq .L25
+ 300 00e4 8230      		sbiw r24,3
+ 301 00e6 9105      		brne .L28
+ 302 00e8 04F4      		rjmp .L26
+ 303 00ea 892B      	.L23:
+ 305 00ee 00C0      	.LM33:
+ 306               		lds r24,m0h
+ 307 00f0 8230      		out 73-0x20,r24
+ 309 00f4 01F0      	.LM34:
+ 310 00f6 0397      		lds r24,m0l
+ 311 00f8 01F4      		out 72-0x20,r24
+ 313               	.LM35:
+  44:servo.h       **** {
+  45:servo.h       **** case 0:
+  46:servo.h       ****  OCR1BH=m0h;     
+ 314               	-0x20,r24
+ 316 00fc 8091 0000 	.LM36:
+ 317 0100 89BD      		ldi r24,lo8(1)
+  47:servo.h       ****  OCR1BL=m0l;     
+ 318               	 r25,hi8(1)
+ 319               		rjmp .L29
+ 320 0102 8091 0000 	.L24:
+  48:servo.h       ****  PORTB=0X01;
+ 322               	7:
+ 323               		lds r24,m1h
+ 324 0108 81E0      		out 73-0x20,r24
+  49:servo.h       ****  i=1;
+ 326               	8:
+ 327               		lds r24,m1l
+ 328 010c 81E0      		out 72-0x20,r24
+ 330 0110 00C0      	.LM39:
+ 331               		ldi r24,lo8(2)
+  50:servo.h       ****  break ;  
+  51:servo.h       ****  
+  52:servo.h       **** case 1:
+  53:servo.h       ****  OCR1BH=m1h;       
+ 332               	6-0x20,r24
+ 334 0112 8091 0000 	.LM40:
+ 335 0116 89BD      		ldi r24,lo8(2)
+  54:servo.h       ****  OCR1BL=m1l;      
+ 336               	 r25,hi8(2)
+ 337               	.L29:
+ 338 0118 8091 0000 		sts (i)+1,r25
+ 339 011c 88BD      		sts i,r24
+  55:servo.h       ****  PORTB=0X02;
+ 340               	p .L28
+ 341               	.L25:
+ 343 0120 88BB      	.LM41:
+  56:servo.h       ****  i=2;
+ 344               	 r24,m2h
+ 345               		out 73-0x20,r24
+ 347 0124 90E0      	.LM42:
+ 348               		lds r24,m2l
+ 349 0126 9093 0000 		out 72-0x20,r24
+ 351 012e 00C0      	.LM43:
+ 352               		ldi r24,lo8(4)
+  57:servo.h       ****  break ; 
+  58:servo.h       ****  
+  59:servo.h       **** case 2:
+  60:servo.h       ****  OCR1BH=m2h;              
+ 353               	x20,r24
+ 355 0130 8091 0000 	.LM44:
+ 356 0134 89BD      		ldi r24,lo8(3)
+  61:servo.h       ****  OCR1BL=m2l;                
+ 357               	 r25,hi8(3)
+ 358               		rjmp .L29
+ 359 0136 8091 0000 	.L26:
+  62:servo.h       ****  PORTB=0X04;
+ 361               	5:
+ 362               		lds r24,m3h
+ 363 013c 84E0      		out 73-0x20,r24
+  63:servo.h       ****  i=3;
+ 365               	6:
+ 366               		lds r24,m3l
+ 367 0140 83E0      		out 72-0x20,r24
+ 369 0144 00C0      	.LM47:
+ 370               		ldi r24,lo8(8)
+  64:servo.h       ****  break ;
+  65:servo.h       ****  
+  66:servo.h       **** case 3:
+  67:servo.h       ****  OCR1BH=m3h;   
+ 371               	6-0x20,r24
+ 373 0146 8091 0000 	.LM48:
+ 374 014a 89BD      		sts (i)+1,__zero_reg__
+  68:servo.h       ****  OCR1BL=m3l;      
+ 375               	 i,__zero_reg__
+ 376               	.L28:
+ 377 014c 8091 0000 	/* epilogue: frame size=0 */
+ 378 0150 88BD      		pop r25
+  69:servo.h       ****  PORTB=0X08;
+ 379               	 72-0x20,r24
+ 381 0152 88E0      	.LM47:
+ 382 0154 88BB      		ldi r24,lo8(8)
+  70:servo.h       ****  i=0;
+ 383               	 56-0x20,r24
+ 385 0156 1092 0000 	.LM48:
+ 386 015a 1092 0000 		sts (i)+1,__zero_reg__
+ 387               		sts i,__zero_reg__
+ 388               	.L28:
+ 389 015e 9F91      	/* epilogue: frame size=0 */
+ 390 0160 8F91      		pop r25
+ 391 0162 0F90      		pop r24
+ 392 0164 0FBE      		pop __tmp_reg__
+ 393 0166 0F90      		out __SREG__,__tmp_reg__
+ 394 0168 1F90      		pop __tmp_reg__
+ 395 016a 1895      		pop __zero_reg__
+ 396               		reti
+ 397               	/* epilogue end (size=7) */
+ 398               	/* function __vector_7 size 83 (69) */
+ 400               	.Lscope4:
+ 404               	.global	deg
+  71:servo.h       ****  break ; 
+  72:servo.h       ****  } 
+  73:servo.h       **** }
+  74:servo.h       **** 
+  75:servo.h       **** void deg(float value,int m)
+  76:servo.h       **** {
+ 406               	M49-deg
+ 407               	.LM49:
+ 408               	/* prologue: frame size=0 */
+ 409 016c CF93      		push r28
+ 410 016e DF93      		push r29
+ 411               	/* prologue end (size=2) */
+ 412 0170 EA01      		movw r28,r20
+  77:servo.h       ****         unsigned int va;
+  78:servo.h       ****         va=5060+value*20.411;
+ 414               	.global	deg
+ 416 0174 39E4      	deg:
+ 418 0178 51E4      	.LM49:
+ 419 017a 00D0      	/* prologue: frame size=0 */
+ 420 017c 20E0      		push r28
+ 421 017e 30E2      		push r29
+ 422 0180 4EE9      	/* prologue end (size=2) */
+ 423 0182 55E4      		movw r28,r20
+ 425 0186 00D0      	.LM50:
+  79:servo.h       ****         if(m==2)              
+ 426               		deg
+ 428 0188 C230      	deg:
+ 430 018c 01F4      	.LM49:
+  80:servo.h       ****         {
+  81:servo.h       ****                 m1l=va;
+ 431               	r_7, .-__vector_7
+ 432               	.Lscope4:
+  82:servo.h       ****                 temp=va>>8;
+ 434               	_SREG__,__tmp_reg__
+ 435               		pop __tmp_reg__
+ 436 0192 872F      		pop __zero_reg__
+ 437 0194 9927      		reti
+ 438 0196 8093 0000 	/* epilogue end (size=7) */
+  83:servo.h       ****                 m1h=temp;
+ 439               	ts (i)+1,__zero_reg__
+ 440               		sts i,__zero_reg__
+ 441 019a 8093 0000 	.L28:
+ 442 019e 00C0      	/* epilogue: frame size=0 */
+ 443               		pop r25
+  84:servo.h       ****         }
+  85:servo.h       ****         if(m==3)            
+ 444               	 72-0x20,r24
+ 446 01a0 C330      	.LM47:
+ 447 01a2 D105      		ldi r24,lo8(8)
+ 448 01a4 01F4      		out 56-0x20,r24
+  86:servo.h       ****         {
+  87:servo.h       ****                 m2l=va;
+ 449               	bn	68,0,70,.LM48-__vector_7
+ 450               	.LM48:
+ 451 01a6 6093 0000 		sts (i)+1,__zero_reg__
+  88:servo.h       ****                 temp=va>>8;
+ 452               	s i,__zero_reg__
+ 453               	.L28:
+ 454 01aa 872F      	/* epilogue: frame size=0 */
+ 455 01ac 9927      		pop r25
+ 456 01ae 8093 0000 		pop r24
+  89:servo.h       ****                 m2h=temp;
+ 457               	24
+ 459 01b2 8093 0000 	.LM47:
+ 460 01b6 00C0      		ldi r24,lo8(8)
+ 461               		out 56-0x20,r24
+  90:servo.h       ****         }
+  91:servo.h       ****         if(m==0)       
+ 462               	bn	68,0,70,.LM48-__vector_7
+ 463               	.LM48:
+ 464 01b8 2097      		sts (i)+1,__zero_reg__
+ 465 01ba 01F4      		sts i,__zero_reg__
+  92:servo.h       ****         {
+  93:servo.h       ****                 m3l=va;
+ 466               	:
+ 467               	/* epilogue: frame size=0 */
+ 468 01bc 6093 0000 		pop r25
+  94:servo.h       ****                 temp=va>>8;
+ 469               	 72-0x20,r24
+ 471 01c0 872F      	.LM47:
+ 472 01c2 9927      		ldi r24,lo8(8)
+ 473 01c4 8093 0000 		out 56-0x20,r24
+  95:servo.h       ****                 m3h=temp;
+ 474               	bn	68,0,70,.LM48-__vector_7
+ 475               	.LM48:
+ 476 01c8 8093 0000 		sts (i)+1,__zero_reg__
+ 477 01cc 00C0      		sts i,__zero_reg__
+ 478               	.L28:
+  96:servo.h       ****         }
+  97:servo.h       ****         if(m==1)     
+ 479               	ilogue: frame size=0 */
+ 480               		pop r25
+ 481 01ce 2197      		pop r24
+ 482 01d0 01F4      		pop __tmp_reg__
+  98:servo.h       ****         {
+  99:servo.h       ****                 m0l=va;
+ 483               	,.LM47-__vector_7
+ 484               	.LM47:
+ 485 01d2 6093 0000 		ldi r24,lo8(8)
+ 100:servo.h       ****                 temp=va>>8;
+ 486               	t 56-0x20,r24
+ 488 01d6 872F      	.LM48:
+ 489 01d8 9927      		sts (i)+1,__zero_reg__
+ 490 01da 8093 0000 		sts i,__zero_reg__
+ 101:servo.h       ****                 m0h=temp;
+ 491               	
+ 492               	/* epilogue: frame size=0 */
+ 493 01de 8093 0000 		pop r25
+ 494               		pop r24
+ 495               		pop __tmp_reg__
+ 496 01e2 DF91      		out __SREG__,__tmp_reg__
+ 497 01e4 CF91      		pop __tmp_reg__
+ 498 01e6 0895      		pop __zero_reg__
+ 499               		reti
+ 500               	/* epilogue end (size=7) */
+ 501               	/* function __vector_7 size 83 (69) */
+ 503               	.Lscope4:
+ 507               	.global	deg
+ 509               	deg:
+ 511               	.LM49:
+   1:main.c        **** //Controlling servo using servo.h
+   2:main.c        **** //motor0-PB1, motor1-PB2, motor2-PB3, motor3-PB3
+   3:main.c        **** 
+   4:main.c        **** #include <avr/io.h>
+   5:main.c        **** #include <avr/interrupt.h>
+   6:main.c        **** #include "delay.h"
+   7:main.c        **** #include "servo.h"
+   8:main.c        **** 
+   9:main.c        **** int main()
+  10:main.c        ****  {
+ 512               	r_7, .-__vector_7
+ 513               	.Lscope4:
+  11:main.c        ****  
+  12:main.c        ****  servo_init();
+ 516               	_
+ 517               		pop __zero_reg__
+ 518 01e8 00D0      		reti
+ 519               	/* epilogue end (size=7) */
+  13:main.c        ****  
+  14:main.c        ****   while(1)
+  15:main.c        ****    {
+  16:main.c        ****     deg(0,0);      //degree motor number
+ 520               	ts (i)+1,__zero_reg__
+ 521               		sts i,__zero_reg__
+ 522 01ea 40E0      	.L28:
+ 523 01ec 50E0      	/* epilogue: frame size=0 */
+ 524 01ee 60E0      		pop r25
+ 525 01f0 70E0      		pop r24
+ 526 01f2 80E0      		pop __tmp_reg__
+ 527 01f4 90E0      		out __SREG__,__tmp_reg__
+ 528 01f6 00D0      		pop __tmp_reg__
+  17:main.c        **** 	delayms(2000);
+ 529               	 56-0x20,r24
+ 531 01f8 80ED      	.LM48:
+ 532 01fa 97E0      		sts (i)+1,__zero_reg__
+ 533 01fc 00D0      		sts i,__zero_reg__
+  18:main.c        **** 	deg(90,0);
+ 534               	
+ 535               	/* epilogue: frame size=0 */
+ 536 01fe 40E0      		pop r25
+ 537 0200 50E0      		pop r24
+ 538 0202 60E0      		pop __tmp_reg__
+ 539 0204 70E0      		out __SREG__,__tmp_reg__
+ 540 0206 84EB      		pop __tmp_reg__
+ 541 0208 92E4      		pop __zero_reg__
+ 542 020a 00D0      		reti
+  19:main.c        **** 	delayms(2000);
+ 543               	70,.LM48-__vector_7
+ 544               	.LM48:
+ 545 020c 80ED      		sts (i)+1,__zero_reg__
+ 546 020e 97E0      		sts i,__zero_reg__
+ 547 0210 00D0      	.L28:
+  20:main.c        **** 	deg(180,0);
+ 548               	ilogue: frame size=0 */
+ 549               		pop r25
+ 550 0212 40E0      		pop r24
+ 551 0214 50E0      		pop __tmp_reg__
+ 552 0216 60E0      		out __SREG__,__tmp_reg__
+ 553 0218 70E0      		pop __tmp_reg__
+ 554 021a 84E3      		pop __zero_reg__
+ 555 021c 93E4      		reti
+ 556 021e 00D0      	/* epilogue end (size=7) */
+  21:main.c        **** 	delayms(2000);
+ 557               	ts (i)+1,__zero_reg__
+ 558               		sts i,__zero_reg__
+ 559 0220 80ED      	.L28:
+ 560 0222 97E0      	/* epilogue: frame size=0 */
+ 561 0224 00D0      		pop r25
+ 562 0226 00C0      		pop r24
+ 563               		pop __tmp_reg__
+ 564               		out __SREG__,__tmp_reg__
+ 565               		pop __tmp_reg__
+ 566               		pop __zero_reg__
+ 567               		reti
+ 568               	/* epilogue end (size=7) */
+ 569               	/* function __vector_7 size 83 (69) */
+ 571               	.Lscope4:
+ 575               	.global	deg
+ 577               	deg:
+ 579               	.LM49:
+ 580               	/* prologue: frame size=0 */
+ 581               		push r28
+ 582               		push r29
+ 583               	/* prologue end (size=2) */
+ 584               		movw r28,r20
+ 586               	.LM50:
+ 587               		ldi r18,lo8(0x41a349ba)
+ 588               		ldi r19,hi8(0x41a349ba)
+ 589               		ldi r20,hlo8(0x41a349ba)
+ 590               		ldi r21,hhi8(0x41a349ba)
+ 591               		rcall __mulsf3
+ 592               		ldi r18,lo8(0x459e2000)
+ 593               		ldi r19,hi8(0x459e2000)
+ 594               		ldi r20,hlo8(0x459e2000)
+ 595               		ldi r21,hhi8(0x459e2000)
+ 596               		rcall __addsf3
+ 597               		rcall __fixunssfsi
+ 599               	.LM51:
+ 600               		cpi r28,2
+ 601               		cpc r29,__zero_reg__
+ 602               		brne .L31
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:71     .text:00000000 delayms
+                            *COM*:00000002 delaycounter1
+                            *COM*:00000002 delaycounter2
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:137    .text:00000050 delayus
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:183    .text:00000084 servo_init
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:247    .text:000000ae __vector_6
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:279    .text:000000c8 __vector_7
+                            *COM*:00000002 i
+                            *COM*:00000001 m0h
+                            *COM*:00000001 m0l
+                            *COM*:00000001 m1h
+                            *COM*:00000001 m1l
+                            *COM*:00000001 m2h
+                            *COM*:00000001 m2l
+                            *COM*:00000001 m3h
+                            *COM*:00000001 m3l
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:405    .text:0000016c deg
+                            *COM*:00000001 temp
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccVwlazZ.s:509    .text:000001e8 main
+                            *COM*:00000002 j
+                            *COM*:00000002 k
+                            *COM*:00000001 x
+                            *COM*:00000001 y
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__mulsf3
+__addsf3
+__fixunssfsi

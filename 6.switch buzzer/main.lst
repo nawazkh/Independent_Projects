@@ -1,0 +1,72 @@
+   1               		.file	"main.c"
+   2               		.arch atmega8535
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  11               		.text
+  12               	.Ltext0:
+  68               	.global	main
+  70               	main:
+   1:main.c        **** //LED and switch
+   2:main.c        **** //all the lLEDS will glow initially  if any switch is pressed its corresponding LED should off.
+   3:main.c        **** #include<avr/io.h>				//This is the header for AVR Microcontroller.
+   4:main.c        **** int main(void)
+   5:main.c        **** {
+  71               	obal	main
+  73               	main:
+   6:main.c        **** 	DDRC=0x08;					// Port C data direction configuration as output port.
+  75               	nction
+  76               	main:
+  78 0002 84BB      	.LM0:
+   7:main.c        **** 	PORTA=0xF0;					// configuering the PORTA in pullup mode.
+  79               	main:
+  81 0004 80EF      	.LM0:
+  82 0006 8BBB      	/* prologue: frame size=0 */
+   8:main.c        **** 	DDRA=0x00;					// Port A data direction configuration as input port.
+  83               	
+  84               	.LM0:
+  85 0008 1ABA      	/* prologue: frame size=0 */
+  86 000a 88E0      	/* prologue end (size=0) */
+   9:main.c        **** 	
+  10:main.c        **** 	while(1)
+  11:main.c        **** 	{
+  12:main.c        **** 	 if((PINA & 0x10)==0x00)	
+  88               	ze=0) */
+  90 000c CC99      	.LM1:
+  91 000e 00C0      		ldi r24,lo8(8)
+  13:main.c        **** 	  {
+  14:main.c        **** 	   PORTC=0x08;
+  92               	.LM1-main
+  93               	.LM1:
+  94 0010 85BB      		ldi r24,lo8(8)
+  95 0012 00C0      		out 52-0x20,r24
+  15:main.c        **** 	  }
+  16:main.c        **** 	 else
+  17:main.c        **** 	  {
+  18:main.c        **** 	  PORTC=0x00;
+  97               	,r24
+  99 0014 15BA      	.LM2:
+ 100 0016 00C0      		ldi r24,lo8(-16)
+ 101               		out 59-0x20,r24
+ 103               	.LM3:
+ 104               		out 58-0x20,__zero_reg__
+ 105               		ldi r24,lo8(8)
+ 106               	.L11:
+ 108               	.LM4:
+ 109               		sbic 57-0x20,4
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Prasanta\LOCALS~1\Temp/ccnhW4am.s:70     .text:00000000 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
